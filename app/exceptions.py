@@ -1,0 +1,2 @@
+def ValidationError():
+    pass

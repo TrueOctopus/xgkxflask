@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import render_template, redirect, request, url_for, flash
 from flask_login import login_user, login_required, logout_user, current_user
 from . import auth
@@ -84,3 +85,5 @@ def resend_confirmation():
                'auth/email/confirm', user=current_user, token=token)
     flash('一封新的确认邮件已发送至你的邮箱')
     return redirect(url_for('main.home'))
+
+

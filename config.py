@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -9,11 +10,14 @@ class Config:
     FLASK_ADMIN = os.environ.get('FLASK_ADMIN') or 'XGKX_admin'
     MAIL_PORT = 465
     MAIL_USE_SSL = True
-    MAIL_USERNAME = os.getenv('MAIL_USERNAME')
+    MAIL_USERNAME = os.getenv('MAIL_USERNAME') or '18368876370@163.com'
     # TODO 记得删除
-    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
-    MAIL_DEFAULT_SENDER = (os.getenv('MAIL_USERNAME'))
+    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD') or 'UQEPEOBTIXZERLHP'
+    MAIL_DEFAULT_SENDER = (os.getenv('MAIL_USERNAME')) 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    FLASKY_POSTS_PER_PAGE = 20
+    FLASKY_FOLLOWERS_PER_PAGE = 50
+    FLASKY_COMMENTS_PER_PAGE = 30
 
     @staticmethod
     def init_app(app):

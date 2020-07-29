@@ -4,7 +4,7 @@ from app import mail
 import app
 
 app.config['FLASKY_MAIL_SUBJECT_PREFIX'] = '[XGKX]'
-app.config['FLASKY_MAIL_SENDER'] = 'XGKX Admin'
+app.config['FLASKY_MAIL_SENDER'] = '18368876370@163.com'
 
 
 def send_email(to, subject, template, **kwargs):
