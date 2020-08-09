@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Flasky{% endblock %}
+{% block head %}
+{{ super() }}
+<style type="text/css">
+    .base64 {
+        text-align: center;
+        margin-top: 30px;
+    }
+</style>
+{% endblock %}
+
+{% block page_content %}
+        <div class="container">
+            <div class="page-header">
+                <h1>恭喜你发现了这个页面 <small>这只是一个彩蛋</small></h1>
+            </div>
+            <p class="base64"></p>
+            <button style="display: none" onclick="show()" type="button" class="btn btn-primary">一个按钮</button>
+        </div>
+{% endblock %}
+{% block scripts %}
+    <script src="../static/js/egg.js"></script>
+{% endblock %}

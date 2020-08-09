@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -27,43 +30,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ede8d3d6-99e5-4032-8772-0e0045c16a01" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/api/article.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/api/gets.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/imgs/default.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/imgs/logowhite.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/auth/email/confirm.htm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/file.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/static/js/egg.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/Justanotheregg.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/egg.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/file.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/test/egg.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dev-user.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/Dev-user.sqlite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/errors.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/errors.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/posts.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/posts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/users.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth/forms.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main/errors.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main/form.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/auth/email/confirm.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/auth/email/confirm.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/auth/email/confirm.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/auth/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/auth/register.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/auth/unconfirmed.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/edit_profile.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/user.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/article.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/article.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/home.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/flasky.py" beforeDir="false" afterPath="$PROJECT_DIR$/flasky.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mail.py" beforeDir="false" afterPath="$PROJECT_DIR$/mail.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/3649a97e4319_initial_migration.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/5b3d35661c1d_initial_migration.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/773f51441ab7_initial_migration.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/9f31002244c8_initial_migration.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/b7353917367e_initial_migration.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,14 +52,16 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JupyterTrust" id="83877ec3-0a36-4304-abe0-0ace8ae270a4" />
   <component name="ProjectId" id="1f1X274KQ7EnDQSMlYv21ejkPfZ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -96,7 +77,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/static/articles" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/templates" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -109,15 +90,16 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="H:\Association_for_Tech\works\20200420xgkxwebsite\xgkxflask\app\templates" />
       <recent name="H:\Association_for_Tech\works\20200420xgkxwebsite\xgkxflask\app\static\articles" />
       <recent name="H:\Association_for_Tech\works\20200420xgkxwebsite\xgkxflask\app\static\imgs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="H:\Association_for_Tech\works\20200420xgkxwebsite\xgkxflask\app\static\js" />
+      <recent name="H:\Association_for_Tech\works\20200420xgkxwebsite\xgkxflask\app\static" />
       <recent name="H:\Association_for_Tech\works\20200420xgkxwebsite\xgkxflask\app\static\imgs" />
       <recent name="H:\Association_for_Tech\works\20200420xgkxwebsite\xgkxflask" />
       <recent name="H:\Association_for_Tech\works\20200420xgkxwebsite\xgkxflask\app\api" />
-      <recent name="H:\Association_for_Tech\works\20200420xgkxwebsite\xgkxflask\app" />
-      <recent name="H:\Association_for_Tech\works\20200420xgkxwebsite\xgkxflask\app\templates" />
     </key>
   </component>
   <component name="RunManager" selected="Flask server.Flask (flasky.py)">
@@ -164,6 +146,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -194,7 +177,11 @@
       <workItem from="1596436856863" duration="20146000" />
       <workItem from="1596507999821" duration="17882000" />
       <workItem from="1596539594557" duration="22582000" />
-      <workItem from="1596605080819" duration="4864000" />
+      <workItem from="1596605080819" duration="6625000" />
+      <workItem from="1596631173464" duration="2000" />
+      <workItem from="1596631341598" duration="582000" />
+      <workItem from="1596632006759" duration="8675000" />
+      <workItem from="1596677254429" duration="26000" />
     </task>
     <task id="LOCAL-00001" summary="修复邮件功能">
       <created>1596003788367</created>
@@ -210,11 +197,18 @@
       <option name="project" value="LOCAL" />
       <updated>1596003838887</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="更新API">
+      <created>1596627674977</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1596627674977</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -243,49 +237,54 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="修复邮件功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="修复邮件功能" />
+    <MESSAGE value="更新API" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新API" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2668" y="356" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1595909124230">
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
     <state x="2668" y="356" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1595909124230" />
-    <state x="2625" y="291" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1595749129919">
+    <state x="2625" y="291" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1596631803001">
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
-    <state x="2625" y="291" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1595749129919" />
-    <state width="1148" height="283" key="GridCell.Tab.0.bottom" timestamp="1596624052484">
+    <state x="2625" y="291" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596631803001" />
+    <state x="3153" y="311" key="FileChooserDialogImpl" timestamp="1596634240782">
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
-    <state width="1148" height="283" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596624052484" />
-    <state width="1148" height="283" key="GridCell.Tab.0.center" timestamp="1596624052484">
+    <state x="3153" y="311" key="FileChooserDialogImpl/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596634240782" />
+    <state width="1150" height="373" key="GridCell.Tab.0.bottom" timestamp="1596676868539">
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
-    <state width="1148" height="283" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596624052484" />
-    <state width="1148" height="283" key="GridCell.Tab.0.left" timestamp="1596624052484">
+    <state width="1150" height="373" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596676868539" />
+    <state width="1150" height="373" key="GridCell.Tab.0.center" timestamp="1596676868539">
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
-    <state width="1148" height="283" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596624052484" />
-    <state width="1148" height="283" key="GridCell.Tab.0.right" timestamp="1596624052484">
+    <state width="1150" height="373" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596676868539" />
+    <state width="1150" height="373" key="GridCell.Tab.0.left" timestamp="1596676868539">
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
-    <state width="1148" height="283" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596624052484" />
-    <state width="1156" height="376" key="GridCell.Tab.1.bottom" timestamp="1596604821335">
+    <state width="1150" height="373" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596676868539" />
+    <state width="1150" height="373" key="GridCell.Tab.0.right" timestamp="1596676868539">
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
-    <state width="1156" height="376" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596604821335" />
-    <state width="1156" height="376" key="GridCell.Tab.1.center" timestamp="1596604821335">
+    <state width="1150" height="373" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596676868539" />
+    <state width="1150" height="373" key="GridCell.Tab.1.bottom" timestamp="1596676868539">
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
-    <state width="1156" height="376" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596604821335" />
-    <state width="1156" height="376" key="GridCell.Tab.1.left" timestamp="1596604821335">
+    <state width="1150" height="373" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596676868539" />
+    <state width="1150" height="373" key="GridCell.Tab.1.center" timestamp="1596676868539">
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
-    <state width="1156" height="376" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596604821335" />
-    <state width="1156" height="376" key="GridCell.Tab.1.right" timestamp="1596604821335">
+    <state width="1150" height="373" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596676868539" />
+    <state width="1150" height="373" key="GridCell.Tab.1.left" timestamp="1596676868539">
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
-    <state width="1156" height="376" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596604821335" />
+    <state width="1150" height="373" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596676868539" />
+    <state width="1150" height="373" key="GridCell.Tab.1.right" timestamp="1596676868539">
+      <screen x="1920" y="0" width="2048" height="1112" />
+    </state>
+    <state width="1150" height="373" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596676868539" />
     <state width="212" height="477" key="HiddenNamespacesPopup" timestamp="1596442777851">
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
@@ -294,16 +293,16 @@
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
     <state x="2572" y="230" key="SettingsEditor/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1595393451585" />
-    <state x="2537" y="289" key="Vcs.Push.Dialog.v2" timestamp="1596003844424">
+    <state x="2537" y="289" key="Vcs.Push.Dialog.v2" timestamp="1596627677489">
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
-    <state x="2537" y="289" key="Vcs.Push.Dialog.v2/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596003844424" />
-    <state x="2993" y="244" width="672" height="678" key="search.everywhere.popup" timestamp="1596455196018">
+    <state x="2537" y="289" key="Vcs.Push.Dialog.v2/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596627677489" />
+    <state x="2993" y="244" width="672" height="678" key="search.everywhere.popup" timestamp="1596632787531">
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
-    <state x="2993" y="244" width="672" height="678" key="search.everywhere.popup/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596455196018" />
+    <state x="2993" y="244" width="672" height="678" key="search.everywhere.popup/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596632787531" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/xgkxflask$Flask__flasky_py_.coverage" NAME="Flask (flasky.py) Coverage Results" MODIFIED="1596624004276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/xgkxflask$Flask__flasky_py_.coverage" NAME="Flask (flasky.py) Coverage Results" MODIFIED="1596676635233" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

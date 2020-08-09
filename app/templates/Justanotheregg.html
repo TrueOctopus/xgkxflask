@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Flasky{% endblock %}
+
+{% block page_content %}
+        <div class="container">
+            <div class="page-header">
+                <h1>恭喜你发现了另一个彩蛋 <small>这只是一个彩蛋</small></h1>
+            </div>
+        </div>
+{% endblock %}
+{% block scripts %}
+    <script src="../static/js/egg.js"></script>
+    <script>morse()</script>
+{% endblock %}

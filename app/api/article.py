@@ -3,7 +3,7 @@ import codecs
 import os
 import markdown
 import re
-from flask import jsonify, request
+from flask import jsonify, request, render_template
 # from werkzeug.utils import secure_filename
 from . import api
 from ..models import db, Article
@@ -124,3 +124,8 @@ def deleteArt():
         #     return jsonify({'code': 0, 'message': '文档不存在'})
         # os.remove(path)
         return jsonify({'code': 1, 'message': '删除成功'})
+
+
+@api.route('/article', methods=['GET', 'POST'])
+def article():
+    return render_template('file.html')
