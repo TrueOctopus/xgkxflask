@@ -137,3 +137,36 @@ def forgetPwd(email, token):
         # return jsonify({'code': 1, 'message': '修改完成'})
     else:
         return jsonify({'code': -1, 'message': '链接是无效的或已经超时'})
+
+
+def delete(user):
+    # noinspection PyBroadException
+    try:
+        db.session.delete(user)
+        db.session.commit()
+        return True
+    except Exception:
+        return False
+
+
+@api.route('/users/deleteUserById/<int:id>', methods=['GET'])
+def deleteUserById(id):
+    user = User.query.filter_by(id=id).first()
+    if user is None:
+        return jsonify({'code': -1, 'message': '用户不存在'})
+    if delete(user):
+        return jsonify({'code': 1, 'message': '删除成功'})
+    else:
+        return jsonify({'code': 0, 'message': '删除失败'})
+
+
+@api.route('/users/deleteUserByEmail/<email>', methods=['GET'])
+def deleteUserByEmail(email):
+    user = User.query.filter_by(email=email).first()
+    if user is None:
+        return jsonify({'code': -1, 'message': '用户不存在'})
+    if delete(user):
+        return jsonify({'code': 1, 'message': '删除成功'})
+    else:
+        return jsonify({'code': 0, 'message': '删除失败'})
+

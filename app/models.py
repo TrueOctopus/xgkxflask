@@ -70,7 +70,7 @@ class User(UserMixin, db.Model):
     #     s = Serializer(current_app.config['SECRET_KEY'], expires_in=expiration)
     #     return s.dumps({'id': self.id}).decode('utf-8')
 
-    @staticmethod
+    # @staticmethod
     # def verify_auth_token(token):
     #     s = Serializer(current_app.config['SECRET_KEY'])
     #     try:
@@ -78,7 +78,6 @@ class User(UserMixin, db.Model):
     #     except:
     #         return None
     #     return User.query.get(data['id'])
-
     def to_json(self):
         json_user = {
             'id': self.id,
