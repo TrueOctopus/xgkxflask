@@ -29,20 +29,19 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ede8d3d6-99e5-4032-8772-0e0045c16a01" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/static/js/egg.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/Justanotheregg.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/egg.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/file.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/test/egg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/article.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/article.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/home.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/flasky.py" beforeDir="false" afterPath="$PROJECT_DIR$/flasky.py" afterDir="false" />
+    <list default="true" id="ede8d3d6-99e5-4032-8772-0e0045c16a01" name="Default Changelist" comment="更新API">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/xgkxflask.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dev-user.sqlite" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/auth/email/confirm.htm" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/auth/email/confirm.htm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/file.html" beforeDir="false" afterPath="$PROJECT_DIR$/test/file.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,6 +181,9 @@
       <workItem from="1596631341598" duration="582000" />
       <workItem from="1596632006759" duration="8675000" />
       <workItem from="1596677254429" duration="26000" />
+      <workItem from="1596974070501" duration="5643000" />
+      <workItem from="1597028965078" duration="1474000" />
+      <workItem from="1597056073141" duration="1022000" />
     </task>
     <task id="LOCAL-00001" summary="修复邮件功能">
       <created>1596003788367</created>
@@ -204,7 +206,14 @@
       <option name="project" value="LOCAL" />
       <updated>1596627674977</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="更新API">
+      <created>1596974109137</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1596974109137</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,10 +302,10 @@
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
     <state x="2572" y="230" key="SettingsEditor/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1595393451585" />
-    <state x="2537" y="289" key="Vcs.Push.Dialog.v2" timestamp="1596627677489">
+    <state x="2537" y="289" key="Vcs.Push.Dialog.v2" timestamp="1596974119305">
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
-    <state x="2537" y="289" key="Vcs.Push.Dialog.v2/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596627677489" />
+    <state x="2537" y="289" key="Vcs.Push.Dialog.v2/0.0.1536.824/1920.0.2048.1112@1920.0.2048.1112" timestamp="1596974119305" />
     <state x="2993" y="244" width="672" height="678" key="search.everywhere.popup" timestamp="1596632787531">
       <screen x="1920" y="0" width="2048" height="1112" />
     </state>
