@@ -11,7 +11,7 @@ from . import default_img
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True, index=True)  # id
-    username = db.Column(db.String(12), unique=True)  # 昵称
+    username = db.Column(db.String(15), unique=True)  # 昵称
     name = db.Column(db.String(64))  # 姓名
     profile_photo = db.Column(db.Text(), default=default_img)  # 头像
     sex = db.Column(db.Integer)  # 性别
@@ -40,6 +40,10 @@ class User(UserMixin, db.Model):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
         return s.dumps({'confirm': self.id}).decode('utf-8')
 
+    def generate_changePwd_token(self, expiration=3600):
+        s = Serializer(current_app.config['SECRET_KEY'], expiration)
+        return s.dumps({'pwd': self.id}).decode('utf-8')
+
     def confirm(self, token):
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
@@ -52,18 +56,28 @@ class User(UserMixin, db.Model):
         db.session.add(self)
         return True
 
-    def generate_auth_token(self, expiration):
-        s = Serializer(current_app.config['SECRET_KEY'], expires_in=expiration)
-        return s.dumps({'id': self.id}).decode('utf-8')
-
-    @staticmethod
-    def verify_auth_token(token):
+    def forgetPwdConfirm(self, token):
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
-            data = s.loads(token)
+            data = s.loads(token.encode('utf-8'))
         except:
-            return None
-        return User.query.get(data['id'])
+            return False
+        if data.get('pwd') != self.id:
+            return False
+        return True
+
+    # def generate_auth_token(self, expiration):
+    #     s = Serializer(current_app.config['SECRET_KEY'], expires_in=expiration)
+    #     return s.dumps({'id': self.id}).decode('utf-8')
+
+    @staticmethod
+    # def verify_auth_token(token):
+    #     s = Serializer(current_app.config['SECRET_KEY'])
+    #     try:
+    #         data = s.loads(token)
+    #     except:
+    #         return None
+    #     return User.query.get(data['id'])
 
     def to_json(self):
         json_user = {
