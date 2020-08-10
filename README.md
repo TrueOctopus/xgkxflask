@@ -56,16 +56,16 @@
 
 **users**
 
-|               api                |                 request                 |                           response                           |                         description                          |
-| :------------------------------: | :-------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|           /users/login           |          {'email', 'password'}          | {'code', 'message', 'id', 'username', 'name', 'profile_photo', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'email', 'about_me', 'confirmed'} |       用户登录; 0:用户不存在; 1:登录成功; -1:密码错误        |
-|         /users/register          |    {'email', 'password', 'username'}    |                     {'code', 'message'}                      |      用户注册; 0:用户已存在; 1:注册成功,验证邮件已发送       |
-|          /users/confirm          |                {'email'}                |                     {'code', 'message'}                      | 发送验证邮件; 0:用户不存在; 1:验证邮件已发送; 2:用户已完成验证 |
-|  /users/confirm/<email>/<token>  |                  None                   |                     {'code', 'message'}                      | 邮箱验证; 0:链接是无效的或已经超时; 1:验证完成; 2:用户已完成验证; -1:用户不存在 |
-|      /users/changePassword       | {'email', 'oldPassword', 'newPassword'} |                     {'code', 'message'}                      | 修改密码; 0:用户不存在 1: 密码修改成功; -1: 修改失败; -2: 原密码错误 |
-|      /users/forgetPassword       |                {'email'}                |                     {'code', 'message'}                      |           发送修改邮件; 0:用户不存在; 1:邮件已发送           |
-|    /users/deleteUserById/<id>    |                  None                   |                     {'code', 'message'}                      |    通过id删除用户; 0:删除失败; -1:用户不存在; 1:删除成功     |
-| /users/deleteUserByEmail/<email> |                  None                   |                     {'code', 'message'}                      |   通过邮箱删除用户; 0:删除失败; -1:用户不存在; 1:删除成功    |
+|                api                 |                 request                 |                           response                           |                         description                          |
+| :--------------------------------: | :-------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+|            /users/login            |          {'email', 'password'}          | {'code', 'message', 'id', 'username', 'name', 'profile_photo', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'email', 'about_me', 'confirmed'} |       用户登录; 0:用户不存在; 1:登录成功; -1:密码错误        |
+|          /users/register           |    {'email', 'password', 'username'}    |                     {'code', 'message'}                      |      用户注册; 0:用户已存在; 1:注册成功,验证邮件已发送       |
+|           /users/confirm           |                {'email'}                |                     {'code', 'message'}                      | 发送验证邮件; 0:用户不存在; 1:验证邮件已发送; 2:用户已完成验证 |
+| /users/confirm/{{email}}/{{token}} |                  None                   |                     {'code', 'message'}                      | 邮箱验证; 0:链接是无效的或已经超时; 1:验证完成; 2:用户已完成验证; -1:用户不存在 |
+|       /users/changePassword        | {'email', 'oldPassword', 'newPassword'} |                     {'code', 'message'}                      | 修改密码; 0:用户不存在 1: 密码修改成功; -1: 修改失败; -2: 原密码错误 |
+|       /users/forgetPassword        |                {'email'}                |                     {'code', 'message'}                      |           发送修改邮件; 0:用户不存在; 1:邮件已发送           |
+|    /users/deleteUserById/{{id}}    |                  None                   |                     {'code', 'message'}                      |    通过id删除用户; 0:删除失败; -1:用户不存在; 1:删除成功     |
+| /users/deleteUserByEmail/{{email}} |                  None                   |                     {'code', 'message'}                      |   通过邮箱删除用户; 0:删除失败; -1:用户不存在; 1:删除成功    |
 
 **article**
 
@@ -77,15 +77,15 @@
 
 **gets**
 
-|           api            | request |                           response                           |    description     |
-| :----------------------: | :-----: | :----------------------------------------------------------: | :----------------: |
-|    /gets/getById/<id>    |  None   | {'id', 'username', 'name', 'profile_photo', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'email', 'about_me', 'confirmed'} | 通过id查看用户信息 |
-|      /gets/getList       |  None   | {'id', 'username', 'name', 'profile_photo', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'email', 'about_me', 'confirmed'} |  查看所用用户信息  |
-| /gets/getImgs/<imgName>  |  None   |                             file                             | 通过图片名获取图片 |
-|   /gets/getAllArtList    |  None   |       {'id', 'art_type', 'title', 'body', 'timestamp'}       |  获取所有文章信息  |
-|  /gets/getNoticeArtList  |  None   |       {'id', 'art_type', 'title', 'body', 'timestamp'}       |  获取所用公告信息  |
-| /gets/getActivityArtList |  None   |       {'id', 'art_type', 'title', 'body', 'timestamp'}       |  获取所用活动信息  |
-|  /gets/getArtById/<id>   |  None   |       {'id', 'art_type', 'title', 'body', 'timestamp'}       |   通过id获取信息   |
+|            api            | request |                           response                           |    description     |
+| :-----------------------: | :-----: | :----------------------------------------------------------: | :----------------: |
+|   /gets/getById/{{id}}    |  None   | {'id', 'username', 'name', 'profile_photo', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'email', 'about_me', 'confirmed'} | 通过id查看用户信息 |
+|       /gets/getList       |  None   | {'id', 'username', 'name', 'profile_photo', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'email', 'about_me', 'confirmed'} |  查看所用用户信息  |
+| /gets/getImgs/{{imgName}} |  None   |                             file                             | 通过图片名获取图片 |
+|    /gets/getAllArtList    |  None   |       {'id', 'art_type', 'title', 'body', 'timestamp'}       |  获取所有文章信息  |
+|  /gets/getNoticeArtList   |  None   |       {'id', 'art_type', 'title', 'body', 'timestamp'}       |  获取所用公告信息  |
+| /gets/getActivityArtList  |  None   |       {'id', 'art_type', 'title', 'body', 'timestamp'}       |  获取所用活动信息  |
+|  /gets/getArtById/{{id}}  |  None   |       {'id', 'art_type', 'title', 'body', 'timestamp'}       |   通过id获取信息   |
 
 **posts**
 
