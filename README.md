@@ -63,7 +63,7 @@
 |         /users/confirm         |                {'email'}                |                     {'code', 'message'}                      | 发送验证邮件; 0:用户不存在; 1:验证邮件已发送; 2:用户已完成验证 |
 | /users/confirm/<email>/<token> |                  None                   |                     {'code', 'message'}                      | 邮箱验证; 0:链接是无效的或已经超时; 1:验证完成; 2:用户已完成验证; -1:用户不存在 |
 |     /users/changePassword      | {'email', 'oldPassword', 'newPassword'} |                     {'code', 'message'}                      | 修改密码; 0:用户不存在 1: 密码修改成功; -1: 修改失败; -2: 原密码错误 |
-|                                |                                         |                                                              |                                                              |
+|     /users/forgetPassword      |                {'email'}                |                     {'code', 'message'}                      |           发送修改邮件; 0:用户不存在; 1:邮件已发送           |
 
 **article**
 
