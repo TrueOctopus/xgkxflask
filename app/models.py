@@ -103,7 +103,10 @@ class Article(db.Model):
     art_type = db.Column(db.String(64), index=True)  # 文章类型（activity或notice）
     title = db.Column(db.String(64), unique=True, index=True)  # 标题
     body = db.Column(db.Text)  # 正文
-    timestamp = db.Column(db.String(64), default=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))  # 时间戳
+    image = db.Column(db.String(64))  # 图片
+    timestamp = db.Column(db.String(64),
+                          default=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    # 时间戳 格式%Y-%m-%d %H:%M:%S
 
     def to_json(self):
         json_user = {
@@ -111,6 +114,7 @@ class Article(db.Model):
             'art_type': self.art_type,
             'title': self.title,
             'body': self.body,
+            'image': self.image,
             'timestamp': self.timestamp
         }
         return json_user
@@ -120,6 +124,7 @@ class Article(db.Model):
             'id': self.id,
             'art_type': self.art_type,
             'title': self.title,
+            'image': self.image,
             'timestamp': self.timestamp
         }
         return json_user

@@ -9,7 +9,8 @@ from . import api
 from ..models import db, Article
 from datetime import datetime
 
-UPLOAD_FOLDER = r'/home/zzy/xgkxflask/app/static/articles/'
+# UPLOAD_FOLDER = r'/home/zzy/xgkxflask/app/static/articles/'
+UPLOAD_FOLDER = r'app/static/articles/'  # 测试用
 
 
 def createPath(file):
@@ -40,6 +41,13 @@ def uploadArt():
             body = text.split('---')[2]
 
             html = markdown.markdown(body)
+
+            images = re.compile(r'gets/getImgs/(.*)\"').findall(html)
+            img_str = '|'
+            for img in images:
+                img_str += str(img) + '|'
+            # print(image_str)
+
             art_type = re.compile(r'art_type:\s(.*)\n').findall(info)[0]
             title = re.compile(r'title:\s(.*)\n').findall(info)[0]
             timestamp = re.compile(r'timestamp:\s(.*)\n').findall(info)[0]
@@ -49,7 +57,8 @@ def uploadArt():
 
             if all([body, art_type, title]):
                 art = Article(body=html, art_type=art_type,
-                              title=title, timestamp=timestamp)
+                              title=title, timestamp=timestamp,
+                              image=img_str)
                 try:
                     db.session.add(art)
                     db.session.commit()
@@ -86,15 +95,23 @@ def upgradeArt():
 
             art_type = re.compile(r'art_type:\s(.*)\n').findall(info)[0]
             html = markdown.markdown(body)
+
+            images = re.compile(r'gets/getImgs/(.*)\"').findall(html)
+            img_str = '|'
+            for img in images:
+                img_str += str(img) + '|'
+            # print(img_str)
+
             if all([body, art_type, title]):
                 art.body = html
+                art.image = img_str
                 art.art_type = art_type
                 art.timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 try:
                     db.session.add(art)
                     db.session.commit()
                 except Exception as e:
-                    # print(e)
+                    print(e)
                     return jsonify({'code': -3, 'message': '更新数据库失败'})
             else:
                 return jsonify({'code': -2, 'message': '更新失败,信息缺失'})
