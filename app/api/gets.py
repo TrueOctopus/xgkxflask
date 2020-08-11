@@ -65,3 +65,36 @@ def getArtById(id):
     if not art:
         return jsonify({'code': 0, 'msg': '文章不存在'})
     return jsonify(art.to_json())
+
+
+# 无正文返回
+@api.route('/gets/getNoBodyArtList', methods=['GET'])
+def getNoBodyArtList():
+    json_data = []
+    for i in Article.query:
+        json_data.append(i.to_json_nobody())
+    return jsonify(json_data)
+
+
+@api.route('/gets/getNoBodyNoticeArtList', methods=['GET'])
+def getNoBodyNoticeArtList():
+    json_data = []
+    for i in Article.query.filter_by(art_type='notice'):
+        json_data.append(i.to_json_nobody())
+    return jsonify(json_data)
+
+
+@api.route('/gets/getNoBodyActivityArtList', methods=['GET'])
+def getNoBodyActivityArtList():
+    json_data = []
+    for i in Article.query.filter_by(art_type='activity'):
+        json_data.append(i.to_json_nobody())
+    return jsonify(json_data)
+
+
+@api.route('/gets/getNoBodyArtById/<int:id>', methods=['GET'])
+def getNoBodyArtById(id):
+    art = Article.query.filter_by(id=id).first()
+    if not art:
+        return jsonify({'code': 0, 'msg': '文章不存在'})
+    return jsonify(art.to_json_nobody())

@@ -114,3 +114,12 @@ class Article(db.Model):
             'timestamp': self.timestamp
         }
         return json_user
+
+    def to_json_nobody(self):
+        json_user = {
+            'id': self.id,
+            'art_type': self.art_type,
+            'title': self.title,
+            'timestamp': self.timestamp
+        }
+        return json_user
