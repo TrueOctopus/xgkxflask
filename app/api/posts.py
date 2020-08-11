@@ -6,6 +6,7 @@ import os
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = r'/home/zzy/xgkxflask/app/static/imgs/'
+# UPLOAD_FOLDER = r'app/static/imgs/'
 
 
 @api.route('/posts/uploadProfile', methods=['POST', 'GET'])
@@ -94,3 +95,22 @@ def addUser():
         json_data['code'] = 1
         json_data['message'] = '添加成功'
         return jsonify(json_data)
+
+
+@api.route('/posts/uploadImg', methods=['POST', 'GET'])
+def uploadImg():
+    if request.method == 'POST':
+        f = request.files['image']
+        if f is not None:
+            file_dir = UPLOAD_FOLDER
+            filename = f.filename
+            etc = filename.split('.')[1]
+            mdict = ['jpg', 'jpeg', 'gif', 'png', 'raw', 'tiff']
+            for i in mdict:
+                if i == etc:
+                    path = os.path.join(file_dir, filename)
+                    if os.path.isfile(path):
+                        return jsonify({'code': 0, 'message': '图片已存在'})
+                    f.save(path)
+                    return jsonify({'code': 1, 'message': '上传成功'})
+            return jsonify({'code': -1, 'message': '类型错误'})

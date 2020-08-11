@@ -9,8 +9,8 @@ from . import api
 from ..models import db, Article
 from datetime import datetime
 
-# UPLOAD_FOLDER = r'/home/zzy/xgkxflask/app/static/articles/'
-UPLOAD_FOLDER = r'app/static/articles/'  # 测试用
+UPLOAD_FOLDER = r'/home/zzy/xgkxflask/app/static/articles/'
+# UPLOAD_FOLDER = r'app/static/articles/'  # 测试用
 
 
 def createPath(file):
@@ -48,17 +48,18 @@ def uploadArt():
                 img_str += str(img) + '|'
             # print(image_str)
 
-            art_type = re.compile(r'art_type:\s(.*)\n').findall(info)[0]
-            title = re.compile(r'title:\s(.*)\n').findall(info)[0]
-            timestamp = re.compile(r'timestamp:\s(.*)\n').findall(info)[0]
+            art_type = re.compile(r'art_type:\s(.*)\r').findall(info)[0]
+            title = re.compile(r'title:\s(.*)\r').findall(info)[0]
+            timestamp = re.compile(r'timestamp:\s(.*)\r').findall(info)[0]
             # timestamp = None
             # print(art_type, title, timestamp)
             # print(info)
 
             if all([body, art_type, title]):
                 art = Article(body=html, art_type=art_type,
-                              title=title, timestamp=timestamp,
-                              image=img_str)
+                              title=title, image=img_str)
+                if timestamp is not None:
+                    art.timestamp = timestamp
                 try:
                     db.session.add(art)
                     db.session.commit()
@@ -88,12 +89,12 @@ def upgradeArt():
             info = text.split('---')[1]
             body = text.split('---')[2]
 
-            title = re.compile(r'title:\s(.*)\n').findall(info)[0]
+            title = re.compile(r'title:\s(.*)\r').findall(info)[0]
             art = Article.query.filter_by(title=title).first()
             if art is None:
                 return jsonify({'code': -4, 'message': '文档不存在'})
 
-            art_type = re.compile(r'art_type:\s(.*)\n').findall(info)[0]
+            art_type = re.compile(r'art_type:\s(.*)\r').findall(info)[0]
             html = markdown.markdown(body)
 
             images = re.compile(r'gets/getImgs/(.*)\"').findall(html)

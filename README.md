@@ -98,4 +98,5 @@
 | :------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :--------------------------------------------------------: |
 | /posts/uploadProfile | {'email', 'username', 'name', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'about_me', 'profile_photo'} |                     {'code', 'message'}                      |    更新用户资料; 0:用户不存在; 1:更新成功; -1:添加失败;    |
 |    /posts/addUser    |              {'email', 'username', 'password'}               | {'code', 'message', 'id', 'username', 'name', 'profile_photo', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'email', 'about_me', 'confirmed'} | 添加用户,默认邮箱验证完成; 0:添加失败; 1:添加成功,返回信息 |
+|   /posts/uploadImg   |                             None                             |                     {'code', 'message'}                      |      上传图片；0:图片已存在; 1:上传成功; -1:类型错误       |
 

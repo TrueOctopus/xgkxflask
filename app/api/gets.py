@@ -3,6 +3,9 @@ from flask import Response, jsonify
 from . import api
 from ..models import User, Article
 
+UPLOAD_FOLDER = r'/home/zzy/xgkxflask/app/static/imgs/'
+# UPLOAD_FOLDER = r'app/static/imgs/'
+
 
 @api.route('/gets/getById/<int:id>', methods=['GET'])
 def getById(id):
@@ -22,7 +25,7 @@ def getList():
 
 @api.route('/gets/getImgs/<imgName>', methods=['GET'])
 def getImgs(imgName):
-    imgPath = '/home/zzy/xgkxflask/app/static/imgs/' + imgName
+    imgPath = UPLOAD_FOLDER + imgName
     mdict = {
         'jpeg': 'image/jpeg',
         'jpg': 'image/jpeg',
