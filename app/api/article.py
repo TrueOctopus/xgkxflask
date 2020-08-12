@@ -37,10 +37,11 @@ def uploadArt():
 
             file = codecs.open(path, 'r', 'utf-8')
             text = file.read()
-            info = text.split('---')[1]
-            body = text.split('---')[2]
+            info = text.split('---', 2)[1]
+            body = text.split('---', 2)[2]
 
-            html = markdown.markdown(body)
+            html = markdown.markdown(body,
+                                     extensions=['markdown.extensions.tables'])
 
             images = re.compile(r'gets/getImgs/(.*)\"').findall(html)
             img_str = '|'
@@ -86,8 +87,8 @@ def upgradeArt():
 
             file = codecs.open(path, 'r', 'utf-8')
             text = file.read()
-            info = text.split('---')[1]
-            body = text.split('---')[2]
+            info = text.split('---', 2)[1]
+            body = text.split('---', 2)[2]
 
             title = re.compile(r'title:\s(.*)\r').findall(info)[0]
             art = Article.query.filter_by(title=title).first()
@@ -95,7 +96,8 @@ def upgradeArt():
                 return jsonify({'code': -4, 'message': '文档不存在'})
 
             art_type = re.compile(r'art_type:\s(.*)\r').findall(info)[0]
-            html = markdown.markdown(body)
+            html = markdown.markdown(body,
+                                     extensions=['markdown.extensions.tables'])
 
             images = re.compile(r'gets/getImgs/(.*)\"').findall(html)
             img_str = '|'
