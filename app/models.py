@@ -99,7 +99,7 @@ class User(UserMixin, db.Model):
 
 class Article(db.Model):
     __tablename__ = 'article'
-    id = db.Column(db.Integer, primary_key=True)  # id
+    id = db.Column(db.Integer, primary_key=True, index=True)  # id
     art_type = db.Column(db.String(64), index=True)  # 文章类型（activity或notice）
     title = db.Column(db.String(64), unique=True, index=True)  # 标题
     body = db.Column(db.Text)  # 正文
@@ -128,3 +128,46 @@ class Article(db.Model):
             'timestamp': self.timestamp
         }
         return json_user
+
+
+class Applicant(db.Model):
+    __tablename__ = 'applicant'
+    id = db.Column(db.Integer, primary_key=True, index=True)  # id
+    name = db.Column(db.String(24), unique=True, index=True)  # 姓名
+    sex = db.Column(db.Integer)  # 性别
+    birthday = db.Column(db.String(12))  # 生日
+    class_name = db.Column(db.String(12))  # 班级
+    intention = db.Column(db.String(12), index=True)  # 意向
+    qq = db.Column(db.String(24), unique=True)  # qq
+    major = db.Column(db.String(24))  # 专业
+    phone_num = db.Column(db.String(11), unique=True)  # 电话
+    email = db.Column(db.String(64), unique=True)  # 邮箱地址
+    specialty = db.Column(db.String(64))  # 爱好与特长
+    office = db.Column(db.String(64))  # 曾担任的职务
+    software = db.Column(db.String(64))  # 会用的软件
+    about_me = db.Column(db.Text())  # 个人介绍
+    cognition = db.Column(db.Text())  # 认知
+
+    def to_json(self):
+        json_data = {
+            'id': self.id,
+            'name': self.name,
+            'sex': self.sex,
+            'birthday': self.birthday,
+            'class_name': self.class_name,
+            'intention': self.intention,
+            'qq': self.qq,
+            'major': self.major,
+            'phone_num': self.phone_num,
+            'email': self.email,
+            'specialty': self.specialty,
+            'office': self.office,
+            'software': self.software,
+            'about_me': self.about_me,
+            'cognition': self.cognition
+        }
+        return json_data
+
+
+
+
