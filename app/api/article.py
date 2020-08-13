@@ -52,6 +52,7 @@ def uploadArt():
             art_type = re.compile(r'art_type:\s(.*)\r').findall(info)[0]
             title = re.compile(r'title:\s(.*)\r').findall(info)[0]
             timestamp = re.compile(r'timestamp:\s(.*)\r').findall(info)[0]
+            print(timestamp)
             # timestamp = None
             # print(art_type, title, timestamp)
             # print(info)
@@ -59,7 +60,7 @@ def uploadArt():
             if all([body, art_type, title]):
                 art = Article(body=html, art_type=art_type,
                               title=title, image=img_str)
-                if timestamp is not None:
+                if timestamp:
                     art.timestamp = timestamp
                 try:
                     db.session.add(art)
