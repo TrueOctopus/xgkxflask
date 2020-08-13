@@ -41,7 +41,7 @@ def getImgs(imgName):
 @api.route('/gets/getAllArtList', methods=['GET'])
 def getAllArtList():
     json_data = []
-    for i in Article.query:
+    for i in Article.query.order_by(Article.timestamp.desc()).all():
         json_data.append(i.to_json())
     return jsonify(json_data)
 
@@ -49,7 +49,8 @@ def getAllArtList():
 @api.route('/gets/getNoticeArtList', methods=['GET'])
 def getNoticeArtList():
     json_data = []
-    for i in Article.query.filter_by(art_type='notice'):
+    for i in Article.query.filter_by(art_type='notice')\
+            .order_by(Article.timestamp.desc()).all():
         json_data.append(i.to_json())
     return jsonify(json_data)
 
@@ -57,7 +58,8 @@ def getNoticeArtList():
 @api.route('/gets/getActivityArtList', methods=['GET'])
 def getActivityArtList():
     json_data = []
-    for i in Article.query.filter_by(art_type='activity'):
+    for i in Article.query.filter_by(art_type='activity')\
+            .order_by(Article.timestamp.desc()).all():
         json_data.append(i.to_json())
     return jsonify(json_data)
 
@@ -74,7 +76,7 @@ def getArtById(id):
 @api.route('/gets/getNoBodyArtList', methods=['GET'])
 def getNoBodyArtList():
     json_data = []
-    for i in Article.query:
+    for i in Article.query.order_by(Article.timestamp.desc()).all():
         json_data.append(i.to_json_nobody())
     return jsonify(json_data)
 
@@ -82,7 +84,8 @@ def getNoBodyArtList():
 @api.route('/gets/getNoBodyNoticeArtList', methods=['GET'])
 def getNoBodyNoticeArtList():
     json_data = []
-    for i in Article.query.filter_by(art_type='notice'):
+    for i in Article.query.filter_by(art_type='notice')\
+            .order_by(Article.timestamp.desc()).all():
         json_data.append(i.to_json_nobody())
     return jsonify(json_data)
 
@@ -90,7 +93,8 @@ def getNoBodyNoticeArtList():
 @api.route('/gets/getNoBodyActivityArtList', methods=['GET'])
 def getNoBodyActivityArtList():
     json_data = []
-    for i in Article.query.filter_by(art_type='activity'):
+    for i in Article.query.filter_by(art_type='activity')\
+            .order_by(Article.timestamp.desc()).all():
         json_data.append(i.to_json_nobody())
     return jsonify(json_data)
 
