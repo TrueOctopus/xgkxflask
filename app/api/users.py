@@ -58,8 +58,8 @@ def confirm(email, token):
         return jsonify({'code': 2, 'message': '已验证'})
     if user.confirm(token):
         db.session.commit()
-        flash('已验证完成')
-        return jsonify({'code': 1, 'message': '已验证完成'})
+        flash('完成验证')
+        return jsonify({'code': 1, 'message': '完成验证'})
     else:
         flash('链接是无效的或已经超时')
         return jsonify({'code': 0, 'message': '链接是无效的或已经超时'})
@@ -169,4 +169,3 @@ def deleteUserByEmail(email):
         return jsonify({'code': 1, 'message': '删除成功'})
     else:
         return jsonify({'code': 0, 'message': '删除失败'})
-

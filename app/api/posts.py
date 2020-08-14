@@ -83,9 +83,9 @@ def addUser():
         email = user_data.get('email')
         username = user_data.get('username')
         password = user_data.get('password')
-
-        user = User(email=email, username=username,
-                    password=password, confirmed=True)
+        if [email, username, password]:
+            user = User(email=email, username=username,
+                        password=password, confirmed=True)
         try:
             db.session.add(user)
             db.session.commit()
