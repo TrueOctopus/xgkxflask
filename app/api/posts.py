@@ -83,9 +83,11 @@ def addUser():
         email = user_data.get('email')
         username = user_data.get('username')
         password = user_data.get('password')
-        if [email, username, password]:
+        if all([email, username, password]):
             user = User(email=email, username=username,
                         password=password, confirmed=True)
+        else:
+            return jsonify({'code': -1, 'message': '添加失败， 信息不全'})
         try:
             db.session.add(user)
             db.session.commit()

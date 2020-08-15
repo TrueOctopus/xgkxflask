@@ -94,17 +94,17 @@
 
 **posts**
 
-|         api          |                           request                            |                           response                           |                        description                         |
-| :------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :--------------------------------------------------------: |
-| /posts/uploadProfile | {'email', 'username', 'name', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'about_me', 'profile_photo'} |                     {'code', 'message'}                      |    更新用户资料; 0:用户不存在; 1:更新成功; -1:添加失败;    |
-|    /posts/addUser    |              {'email', 'username', 'password'}               | {'code', 'message', 'id', 'username', 'name', 'profile_photo', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'email', 'about_me', 'confirmed'} | 添加用户,默认邮箱验证完成; 0:添加失败; 1:添加成功,返回信息 |
-|   /posts/uploadImg   |                             None                             |                     {'code', 'message'}                      |      上传图片；0:图片已存在; 1:上传成功; -1:类型错误       |
+|         api          |                           request                            |                           response                           |                         description                          |
+| :------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+| /posts/uploadProfile | {'email', 'username', 'name', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'about_me', 'profile_photo'} |                     {'code', 'message'}                      |     更新用户资料; 0:用户不存在; 1:更新成功; -1:添加失败;     |
+|    /posts/addUser    |              {'email', 'username', 'password'}               | {'code', 'message', 'id', 'username', 'name', 'profile_photo', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'email', 'about_me', 'confirmed'} | 添加用户,默认邮箱验证完成; 0:添加失败; 1:添加成功,返回信息; -1:添加失败，信息不全 |
+|   /posts/uploadImg   |                             None                             |                     {'code', 'message'}                      |       上传图片；0:图片已存在; 1:上传成功; -1:类型错误        |
 
 **Applicant**
 
 |             api              |                           request                            |                           response                           |                 description                 |
 | :--------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :-----------------------------------------: |
-|       /uploadApplicant       | {"about_me", "birthday", "class_name", "code": , "cognition", "email", "id", "intention", "major", "message", "name", "office", "phone_num", "qq", "sex", "software", "specialty"} |                     {'code', 'message'}                      |        报名; 1:上传成功; -1:上传失败        |
+|       /uploadApplicant       | {"about_me", "birthday", "class_name",  "cognition", "email", "id", "intention", "major", "message", "name", "office", "phone_num", "qq", "sex", "software", "specialty"} |                     {'code', 'message'}                      |        报名; 1:上传成功; -1:上传失败        |
 |   /getApplicantById/{{id}}   |                             None                             | {"id", "about_me", "birthday", "class_name", "code": , "cognition", "email", "id", "intention", "major", "message", "name", "office", "phone_num", "qq", "sex", "software", "specialty", 'code', 'message'} |  通过id获得信息; 0:用户不存在; 1:查询成功;  |
 | /getApplicantByName/{{name}} |                             None                             | {"id", "about_me", "birthday", "class_name", "code": , "cognition", "email", "id", "intention", "major", "message", "name", "office", "phone_num", "qq", "sex", "software", "specialty", 'code', 'message'} | 通过姓名获取信息; 0:用户不存在; 1:查询成功; |
 
