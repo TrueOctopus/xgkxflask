@@ -129,7 +129,7 @@ def forgetPwd(email, token):
     if user.forgetPwdConfirm(token):
         form = ForgetPwdForm()
         if form.validate_on_submit():
-            user = User(password=form.password.data)
+            user.password = form.password.data
             db.session.add(user)
             db.session.commit()
             flash("修改成功，请返回登录")

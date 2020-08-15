@@ -48,11 +48,13 @@ def uploadArt():
             for img in images:
                 img_str += str(img) + '|'
             # print(image_str)
-
-            art_type = re.compile(r'art_type:\s(.*)\r').findall(info)[0]
-            title = re.compile(r'title:\s(.*)\r').findall(info)[0]
-            timestamp = re.compile(r'timestamp:\s(.*)\r').findall(info)[0]
-            print(timestamp)
+            # print(info)
+            art_type = re.compile(r'art_type:\s(.*)').findall(info)[0]
+            # print(art_type)
+            title = re.compile(r'title:\s(.*)').findall(info)[0]
+            # print(title)
+            timestamp = re.compile(r'timestamp:\s(.*)').findall(info)[0]
+            # print(timestamp)
             # timestamp = None
             # print(art_type, title, timestamp)
             # print(info)
@@ -91,16 +93,16 @@ def upgradeArt():
             info = text.split('---', 2)[1]
             body = text.split('---', 2)[2]
 
-            title = re.compile(r'title:\s(.*)\r').findall(info)[0]
+            title = re.compile(r'title:\s(.*)').findall(info)[0]
             art = Article.query.filter_by(title=title).first()
             if art is None:
                 return jsonify({'code': -4, 'message': '文档不存在'})
 
-            art_type = re.compile(r'art_type:\s(.*)\r').findall(info)[0]
+            art_type = re.compile(r'art_type:\s(.*)').findall(info)[0]
             html = markdown.markdown(body,
                                      extensions=['markdown.extensions.tables'])
 
-            images = re.compile(r'gets/getImgs/(.*)\"').findall(html)
+            images = re.compile(r'gets/getImgs/(.*)"').findall(html)
             img_str = '|'
             for img in images:
                 img_str += str(img) + '|'
