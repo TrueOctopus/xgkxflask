@@ -42,20 +42,21 @@ def uploadProfile():
         about_me = data.get('about_me')
         profile_photo = data.get('profile_photo')
         # print(profile_photo)
+
         if profile_photo:
+            if profile_photo != user.profile_photo:
+                file_name = email.split('.')[0]
+                # print(file_name)
+                etc = profile_photo.split(';')[0].split('/')[1]
+                # print(etc)
+                file_name = file_name + '.' + etc
+                profile_photo = profile_photo.split(',')[1]
+                image_data = D_BASE64(profile_photo)
 
-            file_name = email.split('.')[0]
-            # print(file_name)
-            etc = profile_photo.split(';')[0].split('/')[1]
-            # print(etc)
-            file_name = file_name + '.' + etc
-            profile_photo = profile_photo.split(',')[1]
-            image_data = D_BASE64(profile_photo)
-
-            f = open(UPLOAD_FOLDER + file_name, 'wb')
-            f.write(image_data)
-            f.close()
-            profile_photo = file_name
+                f = open(UPLOAD_FOLDER + file_name, 'wb')
+                f.write(image_data)
+                f.close()
+                profile_photo = file_name
 
         # username = data['username']
         # name = data['name']
