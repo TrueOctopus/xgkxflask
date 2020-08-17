@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from datetime import datetime
-from . import default_img
+# from . import default_img
 
 
 class User(UserMixin, db.Model):
@@ -13,7 +13,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True, index=True)  # id
     username = db.Column(db.String(15), unique=True)  # 昵称
     name = db.Column(db.String(64))  # 姓名
-    profile_photo = db.Column(db.Text(), default=default_img)  # 头像
+    profile_photo = db.Column(db.Text(), default='default.jpg')  # 头像
     sex = db.Column(db.Integer)  # 性别
     grade = db.Column(db.String(64))  # 年级
     college = db.Column(db.String(64))  # 学院

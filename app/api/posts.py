@@ -3,10 +3,22 @@ from flask import jsonify, request
 from ..models import User, db
 from . import api
 import os
-from werkzeug.utils import secure_filename
+import base64
+# from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = r'/home/zzy/xgkxflask/app/static/imgs/'
 # UPLOAD_FOLDER = r'app/static/imgs/'
+
+
+def D_BASE64(origStr):
+    # base64 decode should meet the padding rules
+    if len(origStr) % 3 == 1:
+        origStr += "=="
+    elif len(origStr) % 3 == 2:
+        origStr += "="
+
+    dStr = base64.b64decode(origStr)
+    return dStr
 
 
 @api.route('/posts/uploadProfile', methods=['POST', 'GET'])
@@ -29,6 +41,18 @@ def uploadProfile():
         phone_num = data.get('phone_num')
         about_me = data.get('about_me')
         profile_photo = data.get('profile_photo')
+        # print(profile_photo)
+        if profile_photo:
+            image_data = D_BASE64(profile_photo)
+            file_name = email.split('.')[0]
+            # print(file_name)
+            etc = profile_photo.split(';')[0].split('/')[1]
+            # print(etc)
+            file_name = file_name + '.' + etc
+            f = open(UPLOAD_FOLDER + file_name, 'wb')
+            f.write(image_data)
+            f.close()
+            profile_photo = file_name
 
         # username = data['username']
         # name = data['name']
@@ -51,7 +75,7 @@ def uploadProfile():
         #         user.profile_photo = new_name
         # except Exception as e:
         #     pass
-            # return jsonify({'code': -2, 'message': str(e)})
+        # return jsonify({'code': -2, 'message': str(e)})
 
         user.username = username
         user.name = name
@@ -63,7 +87,7 @@ def uploadProfile():
         user.phone_num = phone_num
         user.about_me = about_me
 
-        if profile_photo is not None:
+        if profile_photo:
             user.profile_photo = profile_photo
 
         try:
