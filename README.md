@@ -70,11 +70,12 @@
 
 **article**
 
-|         api         |  request  |      response       |                         description                          |
-| :-----------------: | :-------: | :-----------------: | :----------------------------------------------------------: |
-| /article/uploadArt  |   file    | {'code', 'message'} | 上传文章; 0:上传失败; 1:上传成功; -1:类型错误，应为md文档; -2:上传失败,信息缺失; -3:录入数据库失败 |
-| /article/upgradeArt |   file    | {'code', 'message'} | 更新文档; 0:更新失败; 1:更新成功; -1:类型错误，应为md文档; -2:更新失败,信息缺失; -3:更新数据库失败 |
-| /article/deleteArt  | {'title'} | {'code', 'message'} |    删除文档; 0:文档不存在; -1:更新数据库失败; 1:删除成功     |
+|         api          |  request  |      response       |                         description                          |
+| :------------------: | :-------: | :-----------------: | :----------------------------------------------------------: |
+|  /article/uploadArt  |   file    | {'code', 'message'} | 上传文章; 0:上传失败; 1:上传成功; -1:类型错误，应为md文档; -2:上传失败,信息缺失; -3:录入数据库失败 |
+| /article/upgradeArt  |   file    | {'code', 'message'} | 更新文档; 0:更新失败; 1:更新成功; -1:类型错误，应为md文档; -2:更新失败,信息缺失; -3:更新数据库失败 |
+|  /article/deleteArt  | {'title'} | {'code', 'message'} |    删除文档; 0:文档不存在; -1:更新数据库失败; 1:删除成功     |
+| /article/downloadArt |  'name'   |        file         |              根据文件名下载文档; 0: 文档不存在               |
 
 **gets**
 

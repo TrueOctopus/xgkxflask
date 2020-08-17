@@ -3,14 +3,14 @@ import codecs
 import os
 import markdown
 import re
-from flask import jsonify, request, render_template
+from flask import jsonify, request, render_template, make_response, send_file
 # from werkzeug.utils import secure_filename
 from . import api
 from ..models import db, Article
 from datetime import datetime
 
-# UPLOAD_FOLDER = r'/home/zzy/xgkxflask/app/static/articles/'
-UPLOAD_FOLDER = r'app/static/articles/'  # 测试用
+UPLOAD_FOLDER = r'/home/zzy/xgkxflask/app/static/articles/'
+# UPLOAD_FOLDER = r'app/static/articles/'  # 测试用
 
 
 def createPath(file):
@@ -148,6 +148,19 @@ def deleteArt():
         #     return jsonify({'code': 0, 'message': '文档不存在'})
         # os.remove(path)
         return jsonify({'code': 1, 'message': '删除成功'})
+
+
+@api.route('/article/downloadArt', methods=['POST', 'GET'])
+def downloadArt():
+    name = request.form.get('name')
+    if os.path.isfile(UPLOAD_FOLDER + name + '.md'):
+        # ROOT_FOLDER = os.path.join(os.getcwd(), UPLOAD_FOLDER + name + '.md')
+        ROOT_FOLDER = UPLOAD_FOLDER + name + '.md'
+        response = make_response(send_file(ROOT_FOLDER, name + '.md',
+                                           as_attachment=True))
+        return response
+    else:
+        return jsonify({'code': 0, 'message': '文件不存在'})
 
 
 @api.route('/article', methods=['GET', 'POST'])
