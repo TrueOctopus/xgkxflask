@@ -9,8 +9,8 @@ from . import api
 from ..models import db, Article
 from datetime import datetime
 
-UPLOAD_FOLDER = r'/home/zzy/xgkxflask/app/static/articles/'
-# UPLOAD_FOLDER = r'app/static/articles/'  # 测试用
+# UPLOAD_FOLDER = r'/home/zzy/xgkxflask/app/static/articles/'
+UPLOAD_FOLDER = r'app/static/articles/'  # 测试用
 
 
 def createPath(file):
@@ -54,7 +54,7 @@ def uploadArt():
             title = re.compile(r'title:\s(.*)').findall(info)[0]
             # print(title)
             timestamp = re.compile(r'timestamp:\s(.*)').findall(info)[0]
-            # print(timestamp)
+            # print("|"+timestamp+"|")
             # timestamp = None
             # print(art_type, title, timestamp)
             # print(info)
@@ -63,6 +63,7 @@ def uploadArt():
                 art = Article(body=html, art_type=art_type,
                               title=title, image=img_str)
                 if timestamp:
+                    print(1)
                     art.timestamp = timestamp
                 try:
                     db.session.add(art)

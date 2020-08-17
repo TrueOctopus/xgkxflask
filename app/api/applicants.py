@@ -60,3 +60,11 @@ def getApplicantByName(name):
         json_data['code'] = 1
         json_data['message'] = '查询成功'
         return jsonify(json_data)
+
+
+@api.route('/getApplicantList', methods=['GET'])
+def getApplicantList():
+    json_data = []
+    for stu in Applicant.query:
+        json_data.append(stu.to_json())
+    return jsonify(json_data)
