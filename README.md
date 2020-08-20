@@ -72,8 +72,8 @@
 
 |         api          |  request  |      response       |                         description                          |
 | :------------------: | :-------: | :-----------------: | :----------------------------------------------------------: |
-|  /article/uploadArt  |   file    | {'code', 'message'} | 上传文章; 0:上传失败; 1:上传成功; -1:类型错误，应为md文档; -2:上传失败,信息缺失; -3:录入数据库失败 |
-| /article/upgradeArt  |   file    | {'code', 'message'} | 更新文档; 0:更新失败; 1:更新成功; -1:类型错误，应为md文档; -2:更新失败,信息缺失; -3:更新数据库失败 |
+|  /article/uploadArt  |   file    | {'code', 'message'} | 上传文章; 0:上传失败; 1:上传成功; -1:类型错误，应为md文档; -2:上传失败,信息缺失; -3:录入数据库失败; -4:文档已存在 |
+| /article/upgradeArt  |   file    | {'code', 'message'} | 更新文档; 0:更新失败; 1:更新成功; -1:类型错误，应为md文档; -2:更新失败,信息缺失; -3:更新数据库失败; -4:文档不存在 |
 |  /article/deleteArt  | {'title'} | {'code', 'message'} |    删除文档; 0:文档不存在; -1:更新数据库失败; 1:删除成功     |
 | /article/downloadArt |  'name'   |        file         |              根据文件名下载文档; 0: 文档不存在               |
 
@@ -84,14 +84,14 @@
 |      /gets/getById/{{id}}      |  None   | {'id', 'username', 'name', 'profile_photo', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'email', 'about_me', 'confirmed'} |   通过id查看用户信息    |
 |         /gets/getList          |  None   | {'id', 'username', 'name', 'profile_photo', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'email', 'about_me', 'confirmed'} |    查看所用用户信息     |
 |   /gets/getImgs/{{imgName}}    |  None   |                             file                             |   通过图片名获取图片    |
-|      /gets/getAllArtList       |  None   |  {'id', 'art_type', 'title', ’image‘, 'body', 'timestamp'}   |    获取所有文章信息     |
-|     /gets/getNoticeArtList     |  None   |  {'id', 'art_type', 'title', ’image‘, 'body', 'timestamp'}   |    获取所用公告信息     |
-|    /gets/getActivityArtList    |  None   |  {'id', 'art_type', 'title', ’image‘, 'body', 'timestamp'}   |    获取所用活动信息     |
-|    /gets/getArtById/{{id}}     |  None   |  {'id', 'art_type', 'title', ’image‘, 'body', 'timestamp'}   |     通过id获取信息      |
-|     /gets/getNoBodyArtList     |  None   |      {'id', 'art_type', 'title', ’image‘, 'timestamp'}       | 获取所有文章信息 无正文 |
-|  /gets/getNoBodyNoticeArtList  |  None   |      {'id', 'art_type', 'title', ’image‘, 'timestamp'}       | 获取所用公告信息 无正文 |
-| /gets/getNoBodyActivityArtList |  None   |      {'id', 'art_type', 'title', ’image‘, 'timestamp'}       | 获取所用活动信息 无正文 |
-| /gets/getNoBodyArtById/{{id}}  |  None   |      {'id', 'art_type', 'title', ’image‘, 'timestamp'}       |  通过id获取信息 无正文  |
+|      /gets/getAllArtList       |  None   | {'id', 'art_type', 'title', ’image‘, 'body', 'timestamp', 'filename'} |    获取所有文章信息     |
+|     /gets/getNoticeArtList     |  None   | {'id', 'art_type', 'title', ’image‘, 'body', 'timestamp', 'filename'} |    获取所用公告信息     |
+|    /gets/getActivityArtList    |  None   | {'id', 'art_type', 'title', ’image‘, 'body', 'timestamp', 'filename'} |    获取所用活动信息     |
+|    /gets/getArtById/{{id}}     |  None   | {'id', 'art_type', 'title', ’image‘, 'body', 'timestamp', 'filename'} |     通过id获取信息      |
+|     /gets/getNoBodyArtList     |  None   | {'id', 'art_type', 'title', ’image‘, 'timestamp', 'filename'} | 获取所有文章信息 无正文 |
+|  /gets/getNoBodyNoticeArtList  |  None   | {'id', 'art_type', 'title', ’image‘, 'timestamp', 'filename'} | 获取所用公告信息 无正文 |
+| /gets/getNoBodyActivityArtList |  None   | {'id', 'art_type', 'title', ’image‘, 'timestamp', 'filename'} | 获取所用活动信息 无正文 |
+| /gets/getNoBodyArtById/{{id}}  |  None   | {'id', 'art_type', 'title', ’image‘, 'timestamp', 'filename'} |  通过id获取信息 无正文  |
 
 **posts**
 

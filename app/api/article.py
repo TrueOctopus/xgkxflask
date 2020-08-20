@@ -22,7 +22,7 @@ def createPath(file):
     if etc != 'md':
         return jsonify({'code': -1, 'message': '类型错误，应为md文档'})
     path = os.path.join(file_dir, filename)
-    return path
+    return path, filename.split('.')[0]
 
 
 @api.route('/article/uploadArt', methods=['POST', 'GET'])
@@ -30,9 +30,9 @@ def uploadArt():
     if request.method == 'POST':
         f = request.files['article']
         if f is not None:
-            path = createPath(f)
-            # if os.path.isfile(path):
-            #     return jsonify({'code': -4, 'message': '上传失败，文章已存在'})
+            path, file_name = createPath(f)
+            if os.path.isfile(path):
+                return jsonify({'code': -4, 'message': '上传失败，文章已存在'})
             f.save(path)
 
             file = codecs.open(path, 'r', 'utf-8')
@@ -43,15 +43,15 @@ def uploadArt():
             html = markdown.markdown(body,
                                      extensions=['markdown.extensions.tables'])
 
-            images = re.compile(r'gets/getImgs/(.*)\"').findall(html)
+            images = re.compile(r'gets/getImgs/(.*)"').findall(html)
             img_str = '|'
             for img in images:
                 img_str += str(img) + '|'
             # print(image_str)
             # print(info)
-            art_type = re.compile(r'art_type:\s(.*)').findall(info)[0]
+            art_type = re.compile(r'art_type:\s(.*)\r').findall(info)[0]
             # print(art_type)
-            title = re.compile(r'title:\s(.*)').findall(info)[0]
+            title = re.compile(r'title:\s(.*)\r').findall(info)[0]
             # print(title)
             timestamp = re.compile(r'timestamp:\s(.*)').findall(info)[0]
             # print("|"+timestamp+"|")
@@ -59,11 +59,11 @@ def uploadArt():
             # print(art_type, title, timestamp)
             # print(info)
 
-            if all([body, art_type, title]):
+            if all([body, art_type, title, file_name]):
                 art = Article(body=html, art_type=art_type,
-                              title=title, image=img_str)
-                if timestamp:
-                    print(1)
+                              title=title, image=img_str, filename=file_name)
+                if len(timestamp) > 8:
+                    # print(len(timestamp))
                     art.timestamp = timestamp
                 try:
                     db.session.add(art)
@@ -84,7 +84,7 @@ def upgradeArt():
     if request.method == 'POST':
         f = request.files['article']
         if f is not None:
-            path = createPath(f)
+            path, file_name = createPath(f)
             # if not os.path.isfile(path):
             #     return jsonify({'code': -4, 'message': '文档不存在'})
             f.save(path)
@@ -94,12 +94,12 @@ def upgradeArt():
             info = text.split('---', 2)[1]
             body = text.split('---', 2)[2]
 
-            title = re.compile(r'title:\s(.*)').findall(info)[0]
+            title = re.compile(r'title:\s(.*)\r').findall(info)[0]
             art = Article.query.filter_by(title=title).first()
             if art is None:
                 return jsonify({'code': -4, 'message': '文档不存在'})
 
-            art_type = re.compile(r'art_type:\s(.*)').findall(info)[0]
+            art_type = re.compile(r'art_type:\s(.*)\r').findall(info)[0]
             html = markdown.markdown(body,
                                      extensions=['markdown.extensions.tables'])
 
@@ -109,16 +109,17 @@ def upgradeArt():
                 img_str += str(img) + '|'
             # print(img_str)
 
-            if all([body, art_type, title]):
+            if all([body, art_type, title, file_name]):
                 art.body = html
                 art.image = img_str
                 art.art_type = art_type
+                art.filename = file_name
                 art.timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 try:
                     db.session.add(art)
                     db.session.commit()
                 except Exception as e:
-                    print(e)
+                    # print(e)
                     return jsonify({'code': -3, 'message': '更新数据库失败'})
             else:
                 return jsonify({'code': -2, 'message': '更新失败,信息缺失'})

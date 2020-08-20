@@ -104,6 +104,7 @@ class Article(db.Model):
     title = db.Column(db.String(64), unique=True, index=True)  # 标题
     body = db.Column(db.Text)  # 正文
     image = db.Column(db.String(64))  # 图片
+    filename = db.Column(db.String(64), index=True)  # 文件名
     timestamp = db.Column(db.String(64),
                           default=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     # 时间戳 格式%Y-%m-%d %H:%M:%S
@@ -115,6 +116,7 @@ class Article(db.Model):
             'title': self.title,
             'body': self.body,
             'image': self.image,
+            'filename': self.filename,
             'timestamp': self.timestamp
         }
         return json_user
@@ -125,6 +127,7 @@ class Article(db.Model):
             'art_type': self.art_type,
             'title': self.title,
             'image': self.image,
+            'filename': self.filename,
             'timestamp': self.timestamp
         }
         return json_user
