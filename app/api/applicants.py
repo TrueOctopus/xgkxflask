@@ -68,3 +68,25 @@ def getApplicantList():
     for stu in Applicant.query:
         json_data.append(stu.to_json())
     return jsonify(json_data)
+
+
+@api.route('/deleteApplicantById/<int:id>', methods=['GET'])
+def deleteApplicantById(id):
+    stu = Applicant.query.filter_by(id=id).first()
+    if stu is None:
+        return jsonify({'code': 0, 'message': '用户不存在'})
+    else:
+        db.session.delete(stu)
+        db.session.commit()
+        return jsonify({'code': 1, 'message': '删除成功'})
+
+
+@api.route('/deleteApplicantByName/<name>', methods=['GET'])
+def deleteApplicantByName(name):
+    stu = Applicant.query.filter_by(name=name).first()
+    if stu is None:
+        return jsonify({'code': 0, 'message': '用户不存在'})
+    else:
+        db.session.delete(stu)
+        db.session.commit()
+        return jsonify({'code': 1, 'message': '删除成功'})
