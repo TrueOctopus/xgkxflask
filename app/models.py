@@ -24,6 +24,31 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))  # 密码
     about_me = db.Column(db.Text())  # 个人介绍
     confirmed = db.Column(db.Boolean, default=False)  # 邮箱验证
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
+        if self.role is None:
+            if self.email == current_app.config['FLASK_ADMIN']:
+                self.role = Role.query.filter_by(name='Administrator').first()
+            if self.role is None:
+                self.role = Role.query.filter_by(default=True).first()
+
+    def can(self, perm):
+        return self.role is not None and self.role.has_permission(perm)
+
+    def is_admin(self):
+        return self.can(Permission.ADMIN)
+
+    def add_permission(self, perm):
+        if not self.role.has_permission(perm):
+            self.role = Role.query.filter_by(
+                permissions=self.role.permissions + perm).first()
+
+    def remove_permission(self, perm):
+        if self.role.has_permission(perm):
+            self.role = Role.query.filter_by(
+                permissions=self.role.permissions - perm).first()
 
     @property
     def password(self):
@@ -53,6 +78,7 @@ class User(UserMixin, db.Model):
         if data.get('confirm') != self.id:
             return False
         self.confirmed = True
+        self.add_permission(Permission.SPEAK)
         db.session.add(self)
         return True
 
@@ -92,9 +118,74 @@ class User(UserMixin, db.Model):
             'phone_num': self.phone_num,
             'email': self.email,
             'about_me': self.about_me,
-            'confirmed': self.confirmed
+            'confirmed': self.confirmed,
+            'role_id': self.role_id
         }
         return json_user
+
+    def __repr__(self):
+        return '<User %r>' % self.name
+
+
+class Permission:
+    ACCESS = 1
+    SPEAK = 2
+    PUBLISH = 4
+    ADMIN = 8
+
+
+class Role(db.Model):
+    __tablename__ = 'roles'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
+    default = db.Column(db.Boolean, default=False, index=True)  # 默认用户
+    permissions = db.Column(db.Integer)  # 用户权限
+    users = db.relationship('User', backref='role', lazy='dynamic')
+
+    def __init__(self, **kwargs):
+        super(Role, self).__init__(**kwargs)
+        if self.permissions is None:
+            self.permissions = 0
+
+    def has_permission(self, perm):
+        return self.permissions & perm == perm
+
+    def add_permission(self, perm):
+        if not self.has_permission(perm):
+            self.permissions += perm
+
+    def remove_permission(self, perm):
+        if self.has_permission(perm):
+            self.permissions -= perm
+
+    def reset_permission(self):
+        self.permissions = 0
+
+    @staticmethod
+    def insert_roles():
+        roles = {
+            'Tourist': [],
+            'UnauthenticatedUser': [Permission.ACCESS],
+            'NormalUser': [Permission.ACCESS, Permission.SPEAK],
+            'KXMember': [Permission.ACCESS, Permission.SPEAK,
+                         Permission.PUBLISH],
+            'Administrator': [Permission.ACCESS, Permission.SPEAK,
+                              Permission.PUBLISH, Permission.ADMIN]
+        }
+        default_role = 'UnauthenticatedUser'
+        for r in roles:
+            role = Role.query.filter_by(name=r).first()
+            if role is None:
+                role = Role(name=r)
+            role.reset_permission()
+            for perm in roles[r]:
+                role.add_permission(perm)
+            role.default = (role.name == default_role)
+            db.session.add(role)
+        db.session.commit()
+
+    def __repr__(self):
+        return '<Role %r>' % self.name
 
 
 class Article(db.Model):
@@ -132,11 +223,14 @@ class Article(db.Model):
         }
         return json_user
 
+    def __repr__(self):
+        return '<Article %r>' % self.name
+
 
 class Applicant(db.Model):
     __tablename__ = 'applicant'
     id = db.Column(db.Integer, primary_key=True, index=True)  # id
-    name = db.Column(db.String(24), unique=True, index=True)  # 姓名
+    name = db.Column(db.String(24), index=True)  # 姓名
     sex = db.Column(db.Integer)  # 性别
     birthday = db.Column(db.String(12))  # 生日
     class_name = db.Column(db.String(12))  # 班级
@@ -171,6 +265,5 @@ class Applicant(db.Model):
         }
         return json_data
 
-
-
-
+    def __repr__(self):
+        return '<Applicant %r>' % self.name

@@ -65,8 +65,9 @@
 | /users/confirm/{{email}}/{{token}} |                  None                   |                     {'code', 'message'}                      | 邮箱验证; 0:链接是无效的或已经超时; 1:验证完成; 2:用户已完成验证; -1:用户不存在 |
 |       /users/changePassword        | {'email', 'oldPassword', 'newPassword'} |                     {'code', 'message'}                      | 修改密码; 0:用户不存在 1: 密码修改成功; -1: 修改失败; -2: 原密码错误 |
 |       /users/forgetPassword        |                {'email'}                |                     {'code', 'message'}                      |           发送修改邮件; 0:用户不存在; 1:邮件已发送           |
-|    /users/deleteUserById/{{id}}    |                  None                   |                     {'code', 'message'}                      |    通过id删除用户; 0:删除失败; -1:用户不存在; 1:删除成功     |
-| /users/deleteUserByEmail/{{email}} |                  None                   |                     {'code', 'message'}                      |   通过邮箱删除用户; 0:删除失败; -1:用户不存在; 1:删除成功    |
+|    /users/deleteUserById/{{id}}    |              Authorization              |                     {'code', 'message'}                      | 通过id删除用户; 0:删除失败; -2:权限不足; -3:-token失效请重新登录; -4:你不能删除你自己; -1:用户不存在; 1:删除成功 |
+| /users/deleteUserByEmail/{{email}} |              Authorization              |                     {'code', 'message'}                      | 通过邮箱删除用户; 0:删除失败; -1:用户不存在; -2:权限不足; -3:token失效请重新登录; -4:你不能删除你自己; 1:删除成功 |
+|      /users/changePermission       |     Authorization {'email', 'perm'}     |                     {'code', 'message'}                      | 修改用户权限; 1:修改成功; 0:权限不足; -1:用户不存在; -2:添加至数据库失败; -3:你不能修改管理员的权限; -4:token失效请重新登录 |
 
 **article**
 
@@ -111,4 +112,14 @@
 |        /getApplicantList        |                             None                             | [{"id", "about_me", "birthday", "class_name", "code": , "cognition", "email", "id", "intention", "major", "message", "name", "office", "phone_num", "qq", "sex", "software", "specialty"}] |                获取报名列表                 |
 |   /deleteApplicantById/{{id}}   |                             None                             |                     {'code', 'message'}                      |               根据id删除信息                |
 | /deleteApplicantByName/{{name}} |                             None                             |                     {'code', 'message'}                      |              根据姓名删除信息               |
+
+**permissions**
+
+|               用户               |             权限              |                        说明                        |
+| :------------------------------: | :---------------------------: | :------------------------------------------------: |
+|          1 游客 Tourist          |              无               |                  相关内容不可访问                  |
+| 2 未验证用户 UnauthenticatedUser |            ACCESS             | 只可访问相关内容,不可发言,发表文章与论坛, 默认用户 |
+|      3 普通用户 NormalUser       |         ACCESS, SPEAK         |            可访问, 可留言, 不可发表文章            |
+|       4 科协成员 KXMember        |    ACCESS, SPEAK, PUBLISH     |   可访问, 可留言, 可发表文章, 删除相关文章与留言   |
+|      5 管理员 Administrator      | ACCESS, SPEAK, PUBLISH, ADMIN |                      超级用户                      |
 

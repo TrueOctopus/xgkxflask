@@ -6,14 +6,13 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'zxcvbnm123'
-    MAIL_SERVER = os.environ.get('MAIL_SERVER') or 'smtp.163.com'
-    FLASK_ADMIN = os.environ.get('FLASK_ADMIN') or 'XGKX_admin'
+    MAIL_SERVER = os.environ.get('MAIL_SERVER') or 'smtp.exmail.qq.com'
+    FLASK_ADMIN = os.environ.get('FLASK_ADMIN') or '18368876370@163.com'
     MAIL_PORT = 465
     MAIL_USE_SSL = True
-    MAIL_USERNAME = os.getenv('MAIL_USERNAME') or '18368876370@163.com'
-    # TODO 记得删除
-    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD') or 'UQEPEOBTIXZERLHP'
-    MAIL_DEFAULT_SENDER = (os.getenv('MAIL_USERNAME')) 
+    MAIL_USERNAME = os.getenv('MAIL_USERNAME') or 'xgkx@hguxgkx.com'
+    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD') or 'Zdhnb666'
+    MAIL_DEFAULT_SENDER = (os.getenv('MAIL_USERNAME'))
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     FLASKY_POSTS_PER_PAGE = 20
     FLASKY_FOLLOWERS_PER_PAGE = 50

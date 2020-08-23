@@ -34,8 +34,8 @@ def uploadApplicant():
             db.session.commit()
             return jsonify({'code': 1, 'message': '上传成功'})
         except Exception as e:
-            print(e)
-            return jsonify({'code': -1, 'message': str(e)})
+            # print(e)
+            return jsonify({'code': -1, 'message': '数据库添加错误'})
 
 
 @api.route('/getApplicantById/<int:id>', methods=['GET'])
