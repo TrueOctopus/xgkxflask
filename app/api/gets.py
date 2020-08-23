@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from flask import Response, jsonify
+from flask import Response, jsonify, request, current_app
+import jwt
 from . import api
 from ..models import User, Article
 
@@ -9,18 +10,42 @@ UPLOAD_FOLDER = r'/home/zzy/xgkxflask/app/static/imgs/'
 
 @api.route('/gets/getById/<int:id>', methods=['GET'])
 def getById(id):
-    user = User.query.filter_by(id=id).first()
-    if not user:
-        return jsonify({'msg': '用户不存在'}), 200
-    return jsonify(user.to_json()), 201
+    token = request.headers.get('Authorization')
+    try:
+        payload = jwt.decode(token,
+                             key=current_app.config['SECRET_KEY'],
+                             algorithm='HS256')
+        permission = payload.get('permission')
+
+    except Exception as e:
+        # print(e)
+        return jsonify({'code': 0, 'message': 'token失效请重新登录'})
+
+    if permission == 'Authorization' or 'KXMember':
+        user = User.query.filter_by(id=id).first()
+        if not user:
+            return jsonify({'msg': '用户不存在'}), 200
+        return jsonify(user.to_json()), 201
 
 
 @api.route('/gets/getList', methods=['GET'])
 def getList():
-    json_data = []
-    for i in User.query:
-        json_data.append(i.to_json())
-    return jsonify(json_data), 201
+    token = request.headers.get('Authorization')
+    try:
+        payload = jwt.decode(token,
+                             key=current_app.config['SECRET_KEY'],
+                             algorithm='HS256')
+        permission = payload.get('permission')
+
+    except Exception as e:
+        # print(e)
+        return jsonify({'code': 0, 'message': 'token失效请重新登录'})
+
+    if permission == 'Authorization' or 'KXMember':
+        json_data = []
+        for i in User.query:
+            json_data.append(i.to_json())
+        return jsonify(json_data), 201
 
 
 @api.route('/gets/getImgs/<imgName>', methods=['GET'])

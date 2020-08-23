@@ -109,14 +109,6 @@ def confirmation():
 def changePassword():
     if request.method == 'POST':
         data = request.get_json()
-        # token = request.headers['Authorization']
-        # try:
-        #     payload = jwt.decode(token,
-        #                          key=current_app.config['SECRET_KEY'],
-        #                          algorithm='HS256')
-        #     email = payload.get('email')
-        # except Exception as e:
-        #     return jsonify({'code': -3, 'message': 'token超时'})
         email = data.get('email')
         user = User.query.filter_by(email=email).first()
         if user is None:
@@ -140,15 +132,6 @@ def changePassword():
 @api.route('/users/forgetPassword', methods=['POST', 'GET'])
 def forgetPassword():
     if request.method == 'POST':
-        # token = request.headers['Authorization']
-        # try:
-        #     payload = jwt.decode(token,
-        #                          key=current_app.config['SECRET_KEY'],
-        #                          algorithm='HS256')
-        #     email = payload.get('email')
-        # except Exception as e:
-        #     # print(e)
-        #     return jsonify({'code': -1, 'message': 'token失效请重新登录'})
         email = request.get_json().get('email')
         user = User.query.filter_by(email=email).first()
         if user is None:

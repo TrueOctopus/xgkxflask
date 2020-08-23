@@ -80,19 +80,19 @@
 
 **gets**
 
-|              api               | request |                           response                           |       description       |
-| :----------------------------: | :-----: | :----------------------------------------------------------: | :---------------------: |
-|      /gets/getById/{{id}}      |  None   | {'id', 'username', 'name', 'profile_photo', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'email', 'about_me', 'confirmed'} |   通过id查看用户信息    |
-|         /gets/getList          |  None   | {'id', 'username', 'name', 'profile_photo', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'email', 'about_me', 'confirmed'} |    查看所用用户信息     |
-|   /gets/getImgs/{{imgName}}    |  None   |                             file                             |   通过图片名获取图片    |
-|      /gets/getAllArtList       |  None   | {'id', 'art_type', 'title', ’image‘, 'body', 'timestamp', 'filename'} |    获取所有文章信息     |
-|     /gets/getNoticeArtList     |  None   | {'id', 'art_type', 'title', ’image‘, 'body', 'timestamp', 'filename'} |    获取所用公告信息     |
-|    /gets/getActivityArtList    |  None   | {'id', 'art_type', 'title', ’image‘, 'body', 'timestamp', 'filename'} |    获取所用活动信息     |
-|    /gets/getArtById/{{id}}     |  None   | {'id', 'art_type', 'title', ’image‘, 'body', 'timestamp', 'filename'} |     通过id获取信息      |
-|     /gets/getNoBodyArtList     |  None   | {'id', 'art_type', 'title', ’image‘, 'timestamp', 'filename'} | 获取所有文章信息 无正文 |
-|  /gets/getNoBodyNoticeArtList  |  None   | {'id', 'art_type', 'title', ’image‘, 'timestamp', 'filename'} | 获取所用公告信息 无正文 |
-| /gets/getNoBodyActivityArtList |  None   | {'id', 'art_type', 'title', ’image‘, 'timestamp', 'filename'} | 获取所用活动信息 无正文 |
-| /gets/getNoBodyArtById/{{id}}  |  None   | {'id', 'art_type', 'title', ’image‘, 'timestamp', 'filename'} |  通过id获取信息 无正文  |
+|              api               |    request    |                           response                           |       description       |
+| :----------------------------: | :-----------: | :----------------------------------------------------------: | :---------------------: |
+|      /gets/getById/{{id}}      | Authorization | {'id', 'username', 'name', 'profile_photo', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'email', 'about_me', 'confirmed'} |   通过id查看用户信息    |
+|         /gets/getList          | Authorization | {'id', 'username', 'name', 'profile_photo', 'sex', 'college', 'major', 'grade', 'student_num', 'phone_num', 'email', 'about_me', 'confirmed'} |    查看所用用户信息     |
+|   /gets/getImgs/{{imgName}}    |     None      |                             file                             |   通过图片名获取图片    |
+|      /gets/getAllArtList       |     None      | {'id', 'art_type', 'title', ’image‘, 'body', 'timestamp', 'filename'} |    获取所有文章信息     |
+|     /gets/getNoticeArtList     |     None      | {'id', 'art_type', 'title', ’image‘, 'body', 'timestamp', 'filename'} |    获取所用公告信息     |
+|    /gets/getActivityArtList    |     None      | {'id', 'art_type', 'title', ’image‘, 'body', 'timestamp', 'filename'} |    获取所用活动信息     |
+|    /gets/getArtById/{{id}}     |     None      | {'id', 'art_type', 'title', ’image‘, 'body', 'timestamp', 'filename'} |     通过id获取信息      |
+|     /gets/getNoBodyArtList     |     None      | {'id', 'art_type', 'title', ’image‘, 'timestamp', 'filename'} | 获取所有文章信息 无正文 |
+|  /gets/getNoBodyNoticeArtList  |     None      | {'id', 'art_type', 'title', ’image‘, 'timestamp', 'filename'} | 获取所用公告信息 无正文 |
+| /gets/getNoBodyActivityArtList |     None      | {'id', 'art_type', 'title', ’image‘, 'timestamp', 'filename'} | 获取所用活动信息 无正文 |
+| /gets/getNoBodyArtById/{{id}}  |     None      | {'id', 'art_type', 'title', ’image‘, 'timestamp', 'filename'} |  通过id获取信息 无正文  |
 
 **posts**
 
