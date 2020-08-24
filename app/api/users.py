@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify, request, flash, render_template, current_app, \
-    make_response
-from flask_cors import *
-
+from flask import jsonify, request, flash, render_template, current_app
 from . import api
-from ..models import User, db, Permission, Role
+from ..models import User, db, Role
 from mail import send_email
 from .forms import ForgetPwdForm
 import jwt
@@ -26,7 +23,7 @@ def login():
                     'user_id': user.id,
                     'email': user.email,
                     'permission': user.role.name,
-                    'exp': datetime.utcnow() + timedelta(days=1)
+                    'exp': datetime.utcnow() + timedelta(days=7)
                 }
                 token = jwt.encode(payload,
                                    key=current_app.config['SECRET_KEY'],
@@ -260,3 +257,16 @@ def changePermission():
 
         else:
             return jsonify({'code': 0, 'message': '权限不足'})
+
+
+@api.route('/users/confirmToken', methods=['GET'])
+def confirmToken():
+    token = request.headers.get('Authorization')
+    try:
+        payload = jwt.decode(token,
+                             key=current_app.config['SECRET_KEY'],
+                             algorithm='HS256')
+    except Exception as e:
+        # print(e)
+        return jsonify({'code': 0, 'message': 'token失效请重新登录'})
+    return jsonify({'code': 1, 'message': 'token未失效'})

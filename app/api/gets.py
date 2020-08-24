@@ -15,13 +15,12 @@ def getById(id):
         payload = jwt.decode(token,
                              key=current_app.config['SECRET_KEY'],
                              algorithm='HS256')
-        permission = payload.get('permission')
-
+        id_jwt = payload.get('user_id')
     except Exception as e:
         # print(e)
         return jsonify({'code': 0, 'message': 'token失效请重新登录'})
 
-    if permission == 'Authorization' or 'KXMember':
+    if id_jwt == id:
         user = User.query.filter_by(id=id).first()
         if not user:
             return jsonify({'msg': '用户不存在'}), 200

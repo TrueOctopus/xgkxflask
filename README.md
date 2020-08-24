@@ -68,6 +68,7 @@
 |    /users/deleteUserById/{{id}}    |              Authorization              |                     {'code', 'message'}                      | 通过id删除用户; 0:删除失败; -2:权限不足; -3:-token失效请重新登录; -4:你不能删除你自己; -1:用户不存在; 1:删除成功 |
 | /users/deleteUserByEmail/{{email}} |              Authorization              |                     {'code', 'message'}                      | 通过邮箱删除用户; 0:删除失败; -1:用户不存在; -2:权限不足; -3:token失效请重新登录; -4:你不能删除你自己; 1:删除成功 |
 |      /users/changePermission       |     Authorization {'email', 'perm'}     |                     {'code', 'message'}                      | 修改用户权限; 1:修改成功; 0:权限不足; -1:用户不存在; -2:添加至数据库失败; -3:你不能修改管理员的权限; -4:token失效请重新登录 |
+|        /users/confirmToken         |              Authorization              |                     {'code', 'message'}                      |   验证token是否有效; 0:token失效请重新登录; 1:token未失效    |
 
 **article**
 
