@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify, request
+import jwt
+from flask import jsonify, request, current_app
+
+from mail import send_email
 from . import api
 from ..models import Applicant, db
 
@@ -90,3 +93,33 @@ def deleteApplicantByName(name):
         db.session.delete(stu)
         db.session.commit()
         return jsonify({'code': 1, 'message': '删除成功'})
+
+
+@api.route('/confirmApplication', methods=['GET', 'POST'])
+def confirmApplication():
+    if request.method == 'POST':
+        token = request.headers.get('Authorization')
+        try:
+            payload = jwt.decode(token,
+                                 key=current_app.config['SECRET_KEY'],
+                                 algorithm='HS256')
+            permission = payload.get('permission')
+        except Exception as e:
+            # print(e)
+            return jsonify({'code': 0, 'message': 'token失效请重新登录'})
+
+        if permission == 'Administrator':
+            email = request.get_json().get('email')
+            user = Applicant.query.filter_by(email=email).first()
+            if not user:
+                return jsonify({'code': -2, 'message': '用户不存在'})
+            else:
+                send_email(user.email, '申请通过',
+                           'auth/email/application',
+                           user=user, email=user.email)
+                user.passed = 1
+                db.session.add(user)
+                db.session.commit()
+                return jsonify({'code': 1, 'message': '发送成功'})
+        else:
+            return jsonify({'code': -1, 'message': '权限不足'})

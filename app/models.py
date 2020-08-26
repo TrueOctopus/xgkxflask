@@ -244,6 +244,7 @@ class Applicant(db.Model):
     software = db.Column(db.String(64))  # 会用的软件
     about_me = db.Column(db.Text())  # 个人介绍
     cognition = db.Column(db.Text())  # 认知
+    passed = db.Column(db.Integer, default=0)  # 是否通过申请
 
     def to_json(self):
         json_data = {
@@ -261,7 +262,8 @@ class Applicant(db.Model):
             'office': self.office,
             'software': self.software,
             'about_me': self.about_me,
-            'cognition': self.cognition
+            'cognition': self.cognition,
+            'passed': self.passed
         }
         return json_data
 
