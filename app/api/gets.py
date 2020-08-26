@@ -54,7 +54,8 @@ def getImgs(imgName):
         'jpeg': 'image/jpeg',
         'jpg': 'image/jpeg',
         'png': 'image/png',
-        'gif': 'image/gif'
+        'gif': 'image/gif',
+        'svg': 'image/svg+xml'
     }
     mime = mdict[(imgName.split('.')[1])]
     with open(imgPath, 'rb') as f:

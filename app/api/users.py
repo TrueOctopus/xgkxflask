@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify, request, flash, render_template, current_app
+from flask import jsonify, request, flash, render_template, current_app, redirect
 from . import api
 from ..models import User, db, Role
 from mail import send_email
@@ -63,32 +63,36 @@ def register():
 def confirm(email, token):
     user = User.query.filter_by(email=email).first()
     if user is None:
-        # flash('用户不存在')
-        return jsonify({'code': -1, 'message': '用户不存在'})
+        # /confirm_error
+        # return jsonify({'code': -1, 'message': '用户不存在'})
+        return redirect('https://www.hguxgkx.com/confirm_error')
     if user.confirmed:
-        # flash('已验证')
-        return jsonify({'code': 2, 'message': '已验证'})
+        # /confirm_success
+        # return jsonify({'code': 2, 'message': '已验证'})
+        return redirect('https://www.hguxgkx.com/confirm_success')
     if user.confirm(token):
         db.session.commit()
-        # flash('完成验证')
-        return jsonify({'code': 1, 'message': '完成验证'})
+        # /confirm_success
+        # return jsonify({'code': 1, 'message': '完成验证'})
+        return redirect('https://www.hguxgkx.com/confirm_success')
     else:
-        # flash('链接是无效的或已经超时')
-        return jsonify({'code': 0, 'message': '链接是无效的或已经超时'})
+        # /confirm_error
+        # return jsonify({'code': 0, 'message': '链接是无效的或已经超时'})
+        return redirect('https://www.hguxgkx.com/confirm_error')
 
 
 @api.route('/users/confirm', methods=['GET', 'POST'])
 def confirmation():
     if request.method == 'POST':
-        token = request.headers['Authorization']
-        try:
-            data = jwt.decode(token,
-                              key=current_app.config['SECRET_KEY'],
-                              algorithm='HS256')
-            email = data.get('email')
-        except Exception as e:
-            return jsonify({'code': -1, 'message': 'token超时'})
-
+        # token = request.headers['Authorization']
+        # try:
+        #     data = jwt.decode(token,
+        #                       key=current_app.config['SECRET_KEY'],
+        #                       algorithm='HS256')
+        #     email = data.get('email')
+        # except Exception as e:
+        #     return jsonify({'code': -1, 'message': 'token超时'})
+        email = request.get_json().get('email')
         user = User.query.filter_by(email=email).first()
         if user is None:
             return jsonify({'code': 0, 'message': '用户不存在'})

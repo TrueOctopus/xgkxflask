@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify, request
+import jwt
+from flask import jsonify, request, current_app
 from ..models import User, db
 from . import api
 import os
@@ -24,9 +25,17 @@ def D_BASE64(origStr):
 @api.route('/posts/uploadProfile', methods=['POST', 'GET'])
 def uploadProfile():
     if request.method == 'POST':
+        token = request.headers.get('Authorization')
+        try:
+            payload = jwt.decode(token,
+                                 key=current_app.config['SECRET_KEY'],
+                                 algorithm='HS256')
+            email = payload.get('email')
+        except Exception as e:
+            # print(e)
+            return jsonify({'code': -2, 'message': 'token失效请重新登录'})
+
         data = request.json
-        email = data.get('email')
-        # email = data['email']
         user = User.query.filter_by(email=email).first()
         if user is None:
             return jsonify({'code': 0, 'message': '用户不存在'})
@@ -135,7 +144,7 @@ def uploadImg():
             file_dir = UPLOAD_FOLDER
             filename = f.filename
             etc = filename.split('.')[1]
-            mdict = ['jpg', 'jpeg', 'gif', 'png', 'raw', 'tiff']
+            mdict = ['jpg', 'jpeg', 'gif', 'png', 'raw', 'tiff', 'svg']
             for i in mdict:
                 if i == etc:
                     path = os.path.join(file_dir, filename)
