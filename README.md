@@ -94,6 +94,7 @@
 |  /gets/getNoBodyNoticeArtList  |     None      | {'id', 'art_type', 'title', ’image‘, 'timestamp', 'filename'} | 获取所用公告信息 无正文 |
 | /gets/getNoBodyActivityArtList |     None      | {'id', 'art_type', 'title', ’image‘, 'timestamp', 'filename'} | 获取所用活动信息 无正文 |
 | /gets/getNoBodyArtById/{{id}}  |     None      | {'id', 'art_type', 'title', ’image‘, 'timestamp', 'filename'} |  通过id获取信息 无正文  |
+|  /gets/getArtImgs/{{imgName}}  |     None      |                             file                             | 通过图片名获取文章图片  |
 
 **posts**
 
@@ -105,14 +106,15 @@
 
 **Applicant**
 
-|               api               |                           request                            |                           response                           |                 description                 |
-| :-----------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :-----------------------------------------: |
-|        /uploadApplicant         | {"about_me", "birthday", "class_name",  "cognition", "email", "id", "intention", "major", "message", "name", "office", "phone_num", "qq", "sex", "software", "specialty"} |                     {'code', 'message'}                      |        报名; 1:上传成功; -1:上传失败        |
-|    /getApplicantById/{{id}}     |                             None                             | {"id", "about_me", "birthday", "class_name", "code": , "cognition", "email", "id", "intention", "major", "message", "name", "office", "phone_num", "qq", "sex", "software", "specialty", 'code', 'message'} |  通过id获得信息; 0:用户不存在; 1:查询成功;  |
-|  /getApplicantByName/{{name}}   |                             None                             | {"id", "about_me", "birthday", "class_name", "code": , "cognition", "email", "id", "intention", "major", "message", "name", "office", "phone_num", "qq", "sex", "software", "specialty", 'code', 'message'} | 通过姓名获取信息; 0:用户不存在; 1:查询成功; |
-|        /getApplicantList        |                             None                             | [{"id", "about_me", "birthday", "class_name", "code": , "cognition", "email", "id", "intention", "major", "message", "name", "office", "phone_num", "qq", "sex", "software", "specialty"}] |                获取报名列表                 |
-|   /deleteApplicantById/{{id}}   |                             None                             |                     {'code', 'message'}                      |               根据id删除信息                |
-| /deleteApplicantByName/{{name}} |                             None                             |                     {'code', 'message'}                      |              根据姓名删除信息               |
+|               api               |                           request                            |                           response                           |                         description                          |
+| :-----------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+|        /uploadApplicant         | {"about_me", "birthday", "class_name",  "cognition", "email", "id", "intention", "major", "message", "name", "office", "phone_num", "qq", "sex", "software", "specialty"} |                     {'code', 'message'}                      |                报名; 1:上传成功; -1:上传失败                 |
+|    /getApplicantById/{{id}}     |                             None                             | {"id", "about_me", "birthday", "class_name", "code": , "cognition", "email", "id", "intention", "major", "message", "name", "office", "phone_num", "qq", "sex", "software", "specialty", 'code', 'message'} |          通过id获得信息; 0:用户不存在; 1:查询成功;           |
+|  /getApplicantByName/{{name}}   |                             None                             | {"id", "about_me", "birthday", "class_name", "code": , "cognition", "email", "id", "intention", "major", "message", "name", "office", "phone_num", "qq", "sex", "software", "specialty", 'code', 'message'} |         通过姓名获取信息; 0:用户不存在; 1:查询成功;          |
+|        /getApplicantList        |                             None                             | [{"id", "about_me", "birthday", "class_name", "code": , "cognition", "email", "id", "intention", "major", "message", "name", "office", "phone_num", "qq", "sex", "software", "specialty"}] |                         获取报名列表                         |
+|   /deleteApplicantById/{{id}}   |                             None                             |                     {'code', 'message'}                      |                        根据id删除信息                        |
+| /deleteApplicantByName/{{name}} |                             None                             |                     {'code', 'message'}                      |                       根据姓名删除信息                       |
+|       /confirmApplication       |                   Authorization, {'email'}                   |                     {'code', 'message'}                      | 确认通过; 1: 已通过，邮件发送成功; 0:token失效请重新登录; -1:权限不足; -2:用户不存在 |
 
 **permissions**
 

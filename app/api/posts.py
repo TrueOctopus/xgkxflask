@@ -8,6 +8,7 @@ import base64
 # from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = r'/home/zzy/xgkxflask/app/static/imgs/'
+UPLOAD_ART_FOLDER = r'/home/zzy/xgkxflask/app/static/imgs/artimgs/'
 # UPLOAD_FOLDER = r'app/static/imgs/'
 
 
@@ -141,7 +142,7 @@ def uploadImg():
     if request.method == 'POST':
         f = request.files['image']
         if f is not None:
-            file_dir = UPLOAD_FOLDER
+            file_dir = UPLOAD_ART_FOLDER
             filename = f.filename
             etc = filename.split('.')[1]
             mdict = ['jpg', 'jpeg', 'gif', 'png', 'raw', 'tiff', 'svg']

@@ -4,6 +4,7 @@ import jwt
 from . import api
 from ..models import User, Article
 
+UPLOAD_ART_FOLDER = r'/home/zzy/xgkxflask/app/static/imgs/artimgs/'
 UPLOAD_FOLDER = r'/home/zzy/xgkxflask/app/static/imgs/'
 # UPLOAD_FOLDER = r'app/static/imgs/'
 
@@ -50,6 +51,22 @@ def getList():
 @api.route('/gets/getImgs/<imgName>', methods=['GET'])
 def getImgs(imgName):
     imgPath = UPLOAD_FOLDER + imgName
+    mdict = {
+        'jpeg': 'image/jpeg',
+        'jpg': 'image/jpeg',
+        'png': 'image/png',
+        'gif': 'image/gif',
+        'svg': 'image/svg+xml'
+    }
+    mime = mdict[(imgName.split('.')[1])]
+    with open(imgPath, 'rb') as f:
+        image = f.read()
+    return Response(image, mimetype=mime)
+
+
+@api.route('/gets/getArtImgs/<imgName>', methods=['GET'])
+def getArtImgs(imgName):
+    imgPath = UPLOAD_ART_FOLDER + imgName
     mdict = {
         'jpeg': 'image/jpeg',
         'jpg': 'image/jpeg',
