@@ -111,15 +111,18 @@ def confirmApplication():
         if permission == 'Administrator':
             email = request.get_json().get('email')
             user = Applicant.query.filter_by(email=email).first()
-            if not user:
-                return jsonify({'code': -2, 'message': '用户不存在'})
+            if not user.passed:
+                if not user:
+                    return jsonify({'code': -2, 'message': '用户不存在'})
+                else:
+                    send_email(user.email, '申请通过',
+                               'auth/email/application',
+                               user=user, email=user.email)
+                    user.passed = 1
+                    db.session.add(user)
+                    db.session.commit()
+                    return jsonify({'code': 1, 'message': '发送成功'})
             else:
-                send_email(user.email, '申请通过',
-                           'auth/email/application',
-                           user=user, email=user.email)
-                user.passed = 1
-                db.session.add(user)
-                db.session.commit()
-                return jsonify({'code': 1, 'message': '发送成功'})
+                return jsonify({'code': -3, 'message': '已通过'})
         else:
             return jsonify({'code': -1, 'message': '权限不足'})
