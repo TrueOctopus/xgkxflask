@@ -119,8 +119,12 @@ def confirmApplication():
                                'auth/email/application',
                                user=user, email=user.email)
                     user.passed = 1
-                    db.session.add(user)
-                    db.session.commit()
+                    try:
+                        db.session.add(user)
+                        db.session.commit()
+                    except Exception as e:
+                        # print(e)
+                        return jsonify({'code': -4, 'message': '添加至数据库失败'})
                     return jsonify({'code': 1, 'message': '发送成功'})
             else:
                 return jsonify({'code': -3, 'message': '已通过'})
