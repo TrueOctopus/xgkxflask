@@ -110,6 +110,9 @@ def confirmApplication():
 
         if permission == 'Administrator':
             email = request.get_json().get('email')
+            message = request.get_json().get('message')
+            if not message:
+                message = "我们期待你的精彩表现"
             user = Applicant.query.filter_by(email=email).first()
             if not user.passed:
                 if not user:
@@ -117,7 +120,7 @@ def confirmApplication():
                 else:
                     send_email(user.email, '申请通过',
                                'auth/email/application',
-                               user=user, email=user.email)
+                               user=user, email=user.email, message=message)
                     user.passed = 1
                     try:
                         db.session.add(user)

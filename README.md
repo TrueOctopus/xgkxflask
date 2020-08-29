@@ -114,7 +114,7 @@
 |        /getApplicantList        |                             None                             | [{"id", "about_me", "birthday", "class_name", "code": , "cognition", "email", "id", "intention", "major", "message", "name", "office", "phone_num", "qq", "sex", "software", "specialty"}] |                         获取报名列表                         |
 |   /deleteApplicantById/{{id}}   |                             None                             |                     {'code', 'message'}                      |                        根据id删除信息                        |
 | /deleteApplicantByName/{{name}} |                             None                             |                     {'code', 'message'}                      |                       根据姓名删除信息                       |
-|       /confirmApplication       |                   Authorization, {'email'}                   |                     {'code', 'message'}                      | 确认通过; 1: 已通过，邮件发送成功; 0:token失效请重新登录; -1:权限不足; -2:用户不存在; -3:已通过; -4:添加至数据库失败 |
+|       /confirmApplication       |             Authorization, {'email', 'message'}              |                     {'code', 'message'}                      | 确认通过; 1: 已通过，邮件发送成功; 0:token失效请重新登录; -1:权限不足; -2:用户不存在; -3:已通过; -4:添加至数据库失败 |
 
 **permissions**
 

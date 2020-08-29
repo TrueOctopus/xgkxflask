@@ -43,7 +43,7 @@ def uploadArt():
             html = markdown.markdown(body,
                                      extensions=['markdown.extensions.tables'])
 
-            images = re.compile(r'gets/getImgs/(.*)"').findall(html)
+            images = re.compile(r'gets/getArtImgs/(.*)"').findall(html)
             img_str = '|'
             for img in images:
                 img_str += str(img) + '|'
@@ -103,7 +103,7 @@ def upgradeArt():
             html = markdown.markdown(body,
                                      extensions=['markdown.extensions.tables'])
 
-            images = re.compile(r'gets/getImgs/(.*)"').findall(html)
+            images = re.compile(r'gets/getArtImgs/(.*)"').findall(html)
             img_str = '|'
             for img in images:
                 img_str += str(img) + '|'
