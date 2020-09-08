@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, request, flash, render_template, current_app, redirect
 from . import api
-from ..models import User, db, Role
+from ..models import User, db, Role, Student
 from mail import send_email
 from .forms import ForgetPwdForm
 import jwt
@@ -46,16 +46,18 @@ def register():
         username = accout.get('username')
 
         try:
-            user = User(email=email, password=password, username=username)
+            user = User(email=email, password=password,
+                        username=username)
             db.session.add(user)
             db.session.commit()
+
             token = user.generate_confirmation_token()
             send_email(user.email, '确认账户',
                        'auth/email/confirm',
                        user=user, token=token, email=user.email)
             return jsonify({'code': 1, 'message': '验证邮件已发送'})
         except Exception as e:
-            print(e)
+            # print(e)
             return jsonify({'code': 0, 'message': '用户已存在'})
 
 
@@ -65,20 +67,20 @@ def confirm(email, token):
     if user is None:
         # /confirm_error
         # return jsonify({'code': -1, 'message': '用户不存在'})
-        return redirect('https://www.hguxgkx.com/confirm_error')
+        return redirect('http://www.hguxgkx.com/confirm_error')
     if user.confirmed:
         # /confirm_success
         # return jsonify({'code': 2, 'message': '已验证'})
-        return redirect('https://www.hguxgkx.com/confirm_success')
+        return redirect('http://www.hguxgkx.com/confirm_success')
     if user.confirm(token):
         db.session.commit()
         # /confirm_success
         # return jsonify({'code': 1, 'message': '完成验证'})
-        return redirect('https://www.hguxgkx.com/confirm_success')
+        return redirect('http://www.hguxgkx.com/confirm_success')
     else:
         # /confirm_error
         # return jsonify({'code': 0, 'message': '链接是无效的或已经超时'})
-        return redirect('https://www.hguxgkx.com/confirm_error')
+        return redirect('http://www.hguxgkx.com/confirm_error')
 
 
 @api.route('/users/confirm', methods=['GET', 'POST'])

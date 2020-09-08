@@ -68,29 +68,6 @@ def uploadProfile():
                 f.close()
                 profile_photo = file_name
 
-        # username = data['username']
-        # name = data['name']
-        # sex = data['sex']
-        # college = data['college']
-        # major = data['major']
-        # grade = data['grade']
-        # student_num = data['student_num']
-        # phone_num = data['phone_num']
-        # about_me = data['about_me']
-
-        # try:
-        #     f = request.files['profile_photo']
-        #     if f is not None:
-        #         file_dir = UPLOAD_FOLDER
-        #         filename = secure_filename(f.filename)
-        #         ext = filename.split('.', 1)[-1]
-        #         new_name = email.split('.', 1)[0] + '.' + ext
-        #         f.save(os.path.join(file_dir, new_name))
-        #         user.profile_photo = new_name
-        # except Exception as e:
-        #     pass
-        # return jsonify({'code': -2, 'message': str(e)})
-
         user.username = username
         user.name = name
         user.sex = sex

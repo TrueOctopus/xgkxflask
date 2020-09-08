@@ -12,6 +12,7 @@ __pycache__/
 *.pem
 *.pub
 .Python
+*.xlsx
 test/
 .vscode/
 .idea/
@@ -144,3 +145,7 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+app/api/1.xlsx
+app/static/articles/
+app/static/imgs/18368876370@163.jpg
+migrations/
