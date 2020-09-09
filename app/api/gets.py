@@ -28,6 +28,25 @@ def getById(id):
         return jsonify(user.to_json()), 201
 
 
+@api.route('/gets/getByEmail/<email>', methods=['GET'])
+def getByEmail(email):
+    token = request.headers.get('Authorization')
+    try:
+        payload = jwt.decode(token,
+                             key=current_app.config['SECRET_KEY'],
+                             algorithm='HS256')
+        email_jwt = payload.get('email')
+    except Exception as e:
+        # print(e)
+        return jsonify({'code': 0, 'message': 'token失效请重新登录'})
+
+    if email_jwt == email:
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            return jsonify({'msg': '用户不存在'}), 200
+        return jsonify(user.to_json()), 201
+
+
 @api.route('/gets/getList', methods=['GET'])
 def getList():
     token = request.headers.get('Authorization')

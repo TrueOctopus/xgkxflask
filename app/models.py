@@ -31,8 +31,6 @@ class Student(db.Model):
     note = db.Column(db.String(256))  # 奇怪的信息
     dormitory_id = db.Column(db.Integer)  # 宿舍ID
     poor_certification = db.Column(db.String(8))  # 贫困认证
-
-    # 新增
     # student_number = db.Column(db.String(12), index=True)  # 学号
     # student_class = db.Column(db.String(10), index=True)  # 班级
     subject_category = db.Column(db.String(32))  # 科类
@@ -42,6 +40,15 @@ class Student(db.Model):
     middle_school_name = db.Column(db.String(64))  # 中学名称
     foreign_language = db.Column(db.String(32))  # 外语种类
     report_campus = db.Column(db.String(32))  # 报道校区
+    # 新增
+    estimated_arrival_time = db.Column(db.String(64))  # 预计到校时间
+    transportation = db.Column(db.String(64))  # 交通工具
+    whether_report = db.Column(db.Integer, default=1)  # 是否报道
+    whether_delay_report = db.Column(db.Integer, default=0)  # 是否延期报道
+    delay_report_reason = db.Column(db.String(256), default='无')  # 延期报道理由
+    the_religion = db.Column(db.Integer, default=0)  # 是否信仰宗教
+    parents_name = db.Column(db.String(32))  # 家长姓名
+    parents_phone_number = db.Column(db.String(64))  # 家长联系方式
     # 需填写
     phone_number = db.Column(db.String(11))  # 联系电话
     province = db.Column(db.String(32))  # 省
@@ -50,10 +57,10 @@ class Student(db.Model):
     detailed_address = db.Column(db.String(256))  # 详细地址
     native_place = db.Column(db.String(256))  # 籍贯
     household_address = db.Column(db.String(256))  # 户籍地址
-    father_name = db.Column(db.String(64))  # 父亲姓名
-    father_phone_number = db.Column(db.String(11))  # 父亲联系电话
-    mother_name = db.Column(db.String(64))  # 母亲姓名
-    mother_phone_number = db.Column(db.String(11))  # 母亲联系电话
+    # father_name = db.Column(db.String(64))  # 父亲姓名
+    # father_phone_number = db.Column(db.String(11))  # 父亲联系电话
+    # mother_name = db.Column(db.String(64))  # 母亲姓名
+    # mother_phone_number = db.Column(db.String(11))  # 母亲联系电话
     qq = db.Column(db.String(32))  # QQ号码
 
     # @staticmethod
@@ -117,7 +124,7 @@ class Student(db.Model):
             'candidate_category': self.candidate_category,  # 考生类别
             'graduation_category': self.graduation_category,  # 毕业类别
             'middle_school_name': self.middle_school_name,  # 中学名称
-            'foreign_language': self.foreign_language, # 外语种类
+            'foreign_language': self.foreign_language,  # 外语种类
             'report_campus': self.report_campus,  # 报道校区
             'phone_number': self.phone_number,  # 联系电话
             'ethnic': self.ethnic,  # 民族
@@ -125,10 +132,20 @@ class Student(db.Model):
             'position': self.position,  # 职务
             'dormitory_id': self.dormitory_id,  # 宿舍ID
             'poor_certification': self.poor_certification,  # 贫困认证
-            'father_name': self.father_name,  # 父亲姓名
-            'father_phone_number': self.father_phone_number,  # 父亲联系电话
-            'mother_name': self.mother_name,  # 母亲姓名
-            'mother_phone_number': self.mother_phone_number,  # 母亲联系电话
+
+            'estimated_arrival_time': self.estimated_arrival_time,  # 预计到校时间
+            'transportation': self.transportation,  # 交通工具
+
+            'whether_report': self.whether_report,  # 是否报道
+            'whether_delay_report': self.whether_delay_report,  # 是否延期报道
+            'delay_report_reason': self.delay_report_reason,  # 延期报道理由
+            'the_religion': self.the_religion,  # 是否信仰宗教
+            'parents_name': self.parents_name,  # 家长姓名
+            'parents_phone_number': self.parents_phone_number,  # 家长电话
+            # 'father_name': self.father_name,  # 父亲姓名
+            # 'father_phone_number': self.father_phone_number,  # 父亲联系电话
+            # 'mother_name': self.mother_name,  # 母亲姓名
+            # 'mother_phone_number': self.mother_phone_number,  # 母亲联系电话
             'counselor_id': self.counselor_id,  # 辅导员ID
             'check_in': self.check_in,  # 报到情况
             'qq': self.qq,  # QQ
@@ -168,6 +185,7 @@ class User(UserMixin, db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))  # 用户身份
     student_id = db.Column(db.Integer, db.ForeignKey('students.id'),
                            index=True, unique=True)  # 用户ID
+    linked = db.Column(db.Boolean, default=False)  # 是否关联
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)

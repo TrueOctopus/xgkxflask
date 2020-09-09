@@ -20,9 +20,14 @@ def linkUser():
 
         idcard = request.get_json().get('idcard')
         user = User.query.filter_by(email=email).first()
+        if user.linked:
+            return jsonify({'code': -5, 'message': '用户已关联'})
         if user:
             stu = Student.query.filter_by(idcard=idcard).first()
             if stu:
+                unique_stu_id = User.query.filter_by(student_id=stu.id).first()
+                if unique_stu_id:
+                    return jsonify({'code': -4, 'message': '新生信息已被关联'})
                 user.student = stu
                 user.sex = 1 if stu.sex == '男' else 0
                 # user.student_num = stu.student_number
@@ -31,6 +36,7 @@ def linkUser():
                 user.grade = stu.academic_year
                 user.college = stu.college
                 user.major = stu.professional
+                user.linked = True
                 try:
                     db.session.add(user)
                     db.session.commit()
@@ -257,22 +263,34 @@ def uploadInfo():
             data = request.get_json()
             user.student.qq = data.get('qq')
             user.student.phone_number = data.get('phone_number')
-            user.student.father_name = data.get('father_name')
-            user.student.father_phone_number = data.get('father_phone_number')
-            user.student.mother_name = data.get('mother_name')
-            user.student.mother_phone_number = data.get('mother_phone_number')
+            user.phone_num = data.get('phone_number')
+            # user.student.father_name = data.get('father_name')
+            # user.student.father_phone_number = data.get('father_phone_number')
+            # user.student.mother_name = data.get('mother_name')
+            # user.student.mother_phone_number = data.get('mother_phone_number')
             user.student.province = data.get('province')
             user.student.city = data.get('city')
             user.student.county = data.get('county')
             user.student.detailed_address = data.get('detailed_address')
             user.student.household_address = data.get('household_address')
             user.student.native_place = data.get('native_place')
+            user.student.estimated_arrival_time = \
+                data.get('estimated_arrival_time')
+            user.student.transportation = data.get('transportation')
+
+            user.student.whether_report = data.get('whether_report')
+            user.student.whether_delay_report = data.get('whether_delay_report')
+            user.student.delay_report_reason = data.get('delay_report_reason')
+            user.student.the_religion = data.get('the_religion')
+
+            user.student.parents_name = data.get('parents_name')
+            user.student.parents_phone_number = data.get('parents_phone_number')
 
             try:
                 db.session.add(user)
                 db.session.commit()
             except Exception as e:
-                print(e)
+                # print(e)
                 return jsonify({'code': -1, 'message': '上传失败'})
             return jsonify({'code': 1, 'message': '上传成功'})
         return jsonify({'code': -2, 'message': '用户未关联'})
