@@ -5,7 +5,8 @@ from app.models import User
 from flask_script import Manager, Shell
 from flask_bootstrap import Bootstrap
 
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+# app = create_app(os.getenv('FLASK_CONFIG') or 'development')
+app = create_app(os.getenv('FLASK_CONFIG') or 'production')
 migrate = Migrate(app, db)
 manager = Manager(app)
 bootstrap = Bootstrap(app)

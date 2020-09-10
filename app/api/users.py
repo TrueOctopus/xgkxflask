@@ -50,15 +50,15 @@ def register():
                         username=username)
             db.session.add(user)
             db.session.commit()
-
-            token = user.generate_confirmation_token()
-            send_email(user.email, '确认账户',
-                       'auth/email/confirm',
-                       user=user, token=token, email=user.email)
-            return jsonify({'code': 1, 'message': '验证邮件已发送'})
         except Exception as e:
             # print(e)
             return jsonify({'code': 0, 'message': '用户已存在'})
+        return jsonify({'code': 1, 'message': '注册成功'})
+        # token = user.generate_confirmation_token()
+        # send_email(user.email, '确认账户',
+        #            'auth/email/confirm',
+        #            user=user, token=token, email=user.email)
+        # return jsonify({'code': 1, 'message': '验证邮件已发送'})
 
 
 @api.route('/users/confirm/<email>/<token>', methods=['GET'])

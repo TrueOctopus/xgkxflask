@@ -20,9 +20,10 @@ def linkUser():
 
         idcard = request.get_json().get('idcard')
         user = User.query.filter_by(email=email).first()
-        if user.linked:
-            return jsonify({'code': -5, 'message': '用户已关联'})
+
         if user:
+            if user.linked:
+                return jsonify({'code': -5, 'message': '用户已关联'})
             stu = Student.query.filter_by(idcard=idcard).first()
             if stu:
                 unique_stu_id = User.query.filter_by(student_id=stu.id).first()
@@ -290,7 +291,7 @@ def uploadInfo():
                 db.session.add(user)
                 db.session.commit()
             except Exception as e:
-                # print(e)
+                print(e)
                 return jsonify({'code': -1, 'message': '上传失败'})
             return jsonify({'code': 1, 'message': '上传成功'})
         return jsonify({'code': -2, 'message': '用户未关联'})
