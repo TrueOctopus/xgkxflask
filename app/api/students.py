@@ -80,13 +80,13 @@ def getStudentInfo():
 @api.route('/stu/getCheckInNum', methods=['GET'])
 def getCheckInNum():
     stu = Student.query.filter_by(check_in=True).all()
-    return jsonify({'value': len(stu)})
+    return jsonify([{'value': len(stu)}])
 
 
 @api.route('/stu/getCheckOutNum', methods=['GET'])
 def getCheckOutNum():
     stu = Student.query.filter_by(check_in=False).all()
-    return jsonify({'value': len(stu)})
+    return jsonify([{'value': len(stu)}])
 
 
 @api.route('/stu/checkByIdcard/<idcard>', methods=['GET'])
