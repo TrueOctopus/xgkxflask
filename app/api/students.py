@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, request, current_app
+from sqlalchemy import text
+
 from . import api
 from ..models import User, db, Student, Dormitory
 import jwt
@@ -75,26 +77,16 @@ def getStudentInfo():
         return jsonify(json_data)
 
 
-# @api.route('/stu/checkoutCheckIn', methods=['GET'])
-# def checkoutCheckIn():
-#     token = request.headers.get('Authorization')
-#     try:
-#         payload = jwt.decode(token,
-#                              key=current_app.config['SECRET_KEY'],
-#                              algorithm='HS256')
-#         perm = payload.get('permission')
-#     except Exception as e:
-#         # print(e)
-#         return jsonify({'code': 0, 'message': 'token失效请重新登录'})
-#
-#     if perm == 'Administrator':
-#         stu_list = []
-#         stu = Student.query.filter_by(check_in=False)
-#         for i in stu:
-#             stu_list.append(i.to_json)
-#         return jsonify(stu_list)
-#     else:
-#         return jsonify({'code': -1, 'message': '权限不足'})
+@api.route('/stu/getCheckInNum', methods=['GET'])
+def getCheckInNum():
+    stu = Student.query.filter_by(check_in=True).all()
+    return jsonify({'value': len(stu)})
+
+
+@api.route('/stu/getCheckOutNum', methods=['GET'])
+def getCheckOutNum():
+    stu = Student.query.filter_by(check_in=False).all()
+    return jsonify({'value': len(stu)})
 
 
 @api.route('/stu/checkByIdcard/<idcard>', methods=['GET'])
@@ -160,37 +152,85 @@ def getStudentList():
         # print(e)
         return jsonify({'code': 0, 'message': 'token失效请重新登录'})
 
-    flag = request.get_json().get('flag')
-
     if perm == 'Administrator':
-        stu_list = []
+        flag = request.get_json().get('flag')
+        pageNum = request.get_json().get('pageNum')
+        pageSize = request.get_json().get('pageSize')
+        name = request.get_json().get('name')
+        sex = request.get_json().get('sex')
+        phone_num = request.get_json().get('phone_num')
 
+        stu_list = []
         if flag == 0:
-            for i in User.query:
-                if i.student_id:
-                    json_data = i.student.to_json()
-                    json_data['email'] = i.email
-                    json_data['student_id'] = i.student_id
-                    stu_list.append(json_data)
-            return jsonify(stu_list)
+            all_results = User.query.filter_by(linked=1).filter(
+                User.name.like(
+                    "%" + name + "%") if name is not None else text(''),
+                User.sex.like(
+                    "%" + sex + "%") if sex is not None else text(''),
+                User.phone_num.like(
+                    "%" + phone_num + "%")
+                if phone_num is not None else text('')
+            )
+            count = len(all_results.all())
+            page = all_results.paginate(page=pageNum,
+                                        per_page=pageSize)
+            for i in page.items:
+                json_data = i.student.to_json()
+                json_data['email'] = i.email
+                json_data['student_id'] = i.student_id
+                stu_list.append(json_data)
+            data = {'data': stu_list, 'count': count}
+            return jsonify(data), 201
 
         elif flag == 1:
-            for i in User.query:
-                if i.student_id and i.student.check_in:
-                    json_data = i.student.to_json()
-                    json_data['email'] = i.email
-                    json_data['student_id'] = i.student_id
-                    stu_list.append(json_data)
-            return jsonify(stu_list)
+            all_results = User.query\
+                .join(Student, User.student_id == Student.id)\
+                .filter(
+                    User.linked == 1,
+                    Student.check_in == True,
+                    User.name.like(
+                        "%" + name + "%") if name is not None else text(''),
+                    User.sex.like(
+                        "%" + sex + "%") if sex is not None else text(''),
+                    User.phone_num.like(
+                        "%" + phone_num + "%")
+                    if phone_num is not None else text('')
+                )
+            count = len(all_results.all())
+            page = all_results.paginate(page=pageNum,
+                                        per_page=pageSize)
+            for i in page.items:
+                json_data = i.student.to_json()
+                json_data['email'] = i.email
+                json_data['student_id'] = i.student_id
+                stu_list.append(json_data)
+            data = {'data': stu_list, 'count': count}
+            return jsonify(data), 201
 
         elif flag == 2:
-            for i in User.query:
-                if i.student_id and not i.student.check_in:
-                    json_data = i.student.to_json()
-                    json_data['email'] = i.email
-                    json_data['student_id'] = i.student_id
-                    stu_list.append(json_data)
-            return jsonify(stu_list)
+            all_results = User.query \
+                .join(Student, User.student_id == Student.id) \
+                .filter(
+                    User.linked == 1,
+                    Student.check_in == False,
+                    User.name.like(
+                        "%" + name + "%") if name is not None else text(''),
+                    User.sex.like(
+                        "%" + sex + "%") if sex is not None else text(''),
+                    User.phone_num.like(
+                        "%" + phone_num + "%")
+                    if phone_num is not None else text('')
+                )
+            count = len(all_results.all())
+            page = all_results.paginate(page=pageNum,
+                                        per_page=pageSize)
+            for i in page.items:
+                json_data = i.student.to_json()
+                json_data['email'] = i.email
+                json_data['student_id'] = i.student_id
+                stu_list.append(json_data)
+            data = {'data': stu_list, 'count': count}
+            return jsonify(data), 201
     else:
         return jsonify({'code': -1, 'message': '权限不足'})
 
@@ -234,13 +274,18 @@ def getNoLinkStudentList():
 
     if permission == 'Administrator':
         stu_list = []
-        sql = 'SELECT * FROM students ' \
-              'WHERE id NOT IN (SELECT student_id FROM users)'
+        sql = text('SELECT * FROM students WHERE id NOT IN'
+                   '(SELECT id FROM students WHERE id IN '
+                   '(SELECT student_id FROM users))')
         data = db.session.execute(sql)
+
         for i in data:
+            print(i)
             stu_list.append({
                 'id': i[0],
-                'name': i[6]})
+                'name': i[6],
+                'idcard': i[8]
+            })
         return jsonify(stu_list)
     else:
         return jsonify({'code': -1, 'message': '权限不足'})

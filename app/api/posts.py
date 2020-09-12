@@ -114,8 +114,8 @@ def addUser():
         return jsonify(json_data)
 
 
-@api.route('/posts/uploadImg', methods=['POST', 'GET'])
-def uploadImg():
+@api.route('/posts/uploadArtImg', methods=['POST', 'GET'])
+def uploadArtImg():
     if request.method == 'POST':
         f = request.files['image']
         if f is not None:
@@ -131,3 +131,42 @@ def uploadImg():
                     f.save(path)
                     return jsonify({'code': 1, 'message': '上传成功'})
             return jsonify({'code': -1, 'message': '类型错误'})
+
+
+@api.route('/posts/uploadImg', methods=['POST', 'GET'])
+def uploadImg():
+    if request.method == 'POST':
+        f = request.files['image']
+        if f is not None:
+            file_dir = UPLOAD_FOLDER
+            filename = f.filename
+            etc = filename.split('.')[1]
+            mdict = ['jpg', 'jpeg', 'gif', 'png', 'raw', 'tiff', 'svg']
+            for i in mdict:
+                if i == etc:
+                    path = os.path.join(file_dir, filename)
+                    if os.path.isfile(path):
+                        return jsonify({'code': 0, 'message': '图片已存在'})
+                    f.save(path)
+                    return jsonify({'code': 1, 'message': '上传成功'})
+            return jsonify({'code': -1, 'message': '类型错误'})
+
+
+@api.route('/posts/deleteArtImg/<filename>', methods=['GET'])
+def deleteArtImg(filename):
+    file_dir = UPLOAD_ART_FOLDER
+    path = file_dir + filename
+    if os.path.exists(path):
+        os.remove(path)
+        return jsonify({'code': 1, 'message': '删除成功'})
+    return jsonify({'code': 0, 'message': '图片不存在'})
+
+
+@api.route('/posts/deleteImg/<filename>', methods=['GET'])
+def deleteImg(filename):
+    file_dir = UPLOAD_FOLDER
+    path = file_dir + filename
+    if os.path.exists(path):
+        os.remove(path)
+        return jsonify({'code': 1, 'message': '删除成功'})
+    return jsonify({'code': 0, 'message': '图片不存在'})

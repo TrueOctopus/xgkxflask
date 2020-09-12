@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
+import math
+
 from flask import Response, jsonify, request, current_app
 import jwt
+from sqlalchemy import text
+
 from . import api
 from ..models import User, Article
+# from flask_pagination import Pagination
 
 UPLOAD_ART_FOLDER = r'/home/zzy/xgkxflask/app/static/imgs/artimgs/'
 UPLOAD_FOLDER = r'/home/zzy/xgkxflask/app/static/imgs/'
@@ -47,7 +52,7 @@ def getByEmail(email):
         return jsonify(user.to_json()), 201
 
 
-@api.route('/gets/getList', methods=['GET'])
+@api.route('/gets/getList', methods=['GET', 'POSt'])
 def getList():
     token = request.headers.get('Authorization')
     try:
@@ -60,11 +65,39 @@ def getList():
         # print(e)
         return jsonify({'code': 0, 'message': 'token失效请重新登录'})
 
+    pageNum = request.get_json().get('pageNum')
+    pageSize = request.get_json().get('pageSize')
+    name = request.get_json().get('name')
+    sex = request.get_json().get('sex')
+    email = request.get_json().get('email')
+    phone_num = request.get_json().get('phone_num')
+
     if permission == 'Authorization' or 'KXMember':
+
+        all_results = User.query.filter(
+            User.name.like(
+                "%" + name + "%") if name is not None else text(''),
+            User.sex.like(
+                "%" + sex + "%") if sex is not None else text(''),
+            User.email.like(
+                "%" + email + "%") if email is not None else text(''),
+            User.phone_num.like(
+                "%" + phone_num + "%") if phone_num is not None else text('')
+        )
+        count = len(all_results.all())
         json_data = []
-        for i in User.query:
+        page = all_results.paginate(page=pageNum,
+                                    per_page=pageSize)
+        for i in page.items:
             json_data.append(i.to_json())
-        return jsonify(json_data), 201
+        # for i in User.query:
+        #     json_data.append(i.to_json())
+        # start = (pageNum - 1) * pageSize
+        # end = pageNum * pageSize \
+        #     if len(json_data) > pageNum * pageSize else len(json_data)
+        # paginate = Pagination(page=pageNum, total=len(json_data))
+        data = {'data': json_data, 'count': count}
+        return jsonify(data), 201
 
 
 @api.route('/gets/getImgs/<imgName>', methods=['GET'])

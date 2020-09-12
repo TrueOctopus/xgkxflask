@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import jwt
 from flask import jsonify, request, current_app
-
 from mail import send_email
 from . import api
 from ..models import Applicant, db
