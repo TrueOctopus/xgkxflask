@@ -6,9 +6,10 @@ __pycache__/
 *$py.class
 *.sqlite
 # C extensions
-*.so
 
 # Distribution / packaging
+*.so
+*.xls
 *.pem
 *.pub
 .Python

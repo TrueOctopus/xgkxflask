@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify, request, current_app
+from flask import jsonify, request, current_app, make_response, send_file
 from sqlalchemy import text
 
 from . import api
 from ..models import User, db, Student, Dormitory
 import jwt
+import xlwt
+
+UPLOAD_FOLDER = r'/home/zzy/xgkxflask/app/'
+# UPLOAD_FOLDER = r''
 
 
 @api.route('/stu/linkUser', methods=['GET', 'POST'])
@@ -183,19 +187,19 @@ def getStudentList():
             return jsonify(data), 201
 
         elif flag == 1:
-            all_results = User.query\
-                .join(Student, User.student_id == Student.id)\
+            all_results = User.query \
+                .join(Student, User.student_id == Student.id) \
                 .filter(
-                    User.linked == 1,
-                    Student.check_in == True,
-                    User.name.like(
-                        "%" + name + "%") if name is not None else text(''),
-                    User.sex.like(
-                        "%" + sex + "%") if sex is not None else text(''),
-                    User.phone_num.like(
-                        "%" + phone_num + "%")
-                    if phone_num is not None else text('')
-                )
+                User.linked == 1,
+                Student.check_in == True,
+                User.name.like(
+                    "%" + name + "%") if name is not None else text(''),
+                User.sex.like(
+                    "%" + sex + "%") if sex is not None else text(''),
+                User.phone_num.like(
+                    "%" + phone_num + "%")
+                if phone_num is not None else text('')
+            )
             count = len(all_results.all())
             page = all_results.paginate(page=pageNum,
                                         per_page=pageSize)
@@ -211,16 +215,16 @@ def getStudentList():
             all_results = User.query \
                 .join(Student, User.student_id == Student.id) \
                 .filter(
-                    User.linked == 1,
-                    Student.check_in == False,
-                    User.name.like(
-                        "%" + name + "%") if name is not None else text(''),
-                    User.sex.like(
-                        "%" + sex + "%") if sex is not None else text(''),
-                    User.phone_num.like(
-                        "%" + phone_num + "%")
-                    if phone_num is not None else text('')
-                )
+                User.linked == 1,
+                Student.check_in == False,
+                User.name.like(
+                    "%" + name + "%") if name is not None else text(''),
+                User.sex.like(
+                    "%" + sex + "%") if sex is not None else text(''),
+                User.phone_num.like(
+                    "%" + phone_num + "%")
+                if phone_num is not None else text('')
+            )
             count = len(all_results.all())
             page = all_results.paginate(page=pageNum,
                                         per_page=pageSize)
@@ -472,3 +476,142 @@ def showFemaleRoom():
         return jsonify(room_list)
     else:
         return jsonify({'code': -1, 'message': '权限不足'})
+
+
+@api.route('/stu/getStudentExcel', methods=['GET'])
+def getStudentExcel():
+    dormitory_list = [['暂无', '1', '8'],
+                      ['3号楼101', '1', '8'],
+                      ['3号楼102', '1', '8'],
+                      ['6号楼101', '1', '6'],
+                      ['6号楼102', '1', '6'],
+                      ['6号楼103', '1', '6'],
+                      ['6号楼104', '1', '6'],
+                      ['6号楼106', '1', '6'],
+                      ['6号楼107', '1', '6'],
+                      ['6号楼108', '1', '6'],
+                      ['6号楼111', '1', '6'],
+                      ['6号楼112', '1', '6'],
+                      ['6号楼113', '1', '6'],
+                      ['6号楼114', '1', '6'],
+                      ['6号楼115', '1', '6'],
+                      ['6号楼116', '1', '6'],
+                      ['6号楼201', '1', '6'],
+                      ['6号楼202', '1', '6'],
+                      ['6号楼203', '1', '6'],
+                      ['6号楼204', '1', '6'],
+                      ['6号楼205', '1', '6'],
+                      ['6号楼206', '1', '6'],
+                      ['6号楼207', '1', '6'],
+                      ['6号楼208', '1', '6'],
+                      ['6号楼209', '1', '6'],
+                      ['6号楼212', '1', '6'],
+                      ['6号楼213', '1', '6'],
+                      ['6号楼214', '1', '6'],
+                      ['6号楼215', '1', '6'],
+                      ['6号楼216', '1', '6'],
+                      ['6号楼217', '1', '6'],
+                      ['6号楼301', '1', '6'],
+                      ['6号楼302', '1', '6'],
+                      ['6号楼303', '1', '6'],
+                      ['6号楼304', '1', '6'],
+                      ['6号楼305', '1', '6'],
+                      ['6号楼306', '1', '6'],
+                      ['6号楼307', '1', '6'],
+                      ['6号楼308', '1', '6'],
+                      ['6号楼309', '1', '6'],
+                      ['6号楼312', '1', '6'],
+                      ['6号楼313', '1', '6'],
+                      ['6号楼314', '1', '6'],
+                      ['6号楼315', '1', '6'],
+                      ['6号楼316', '1', '6'],
+                      ['6号楼317', '1', '6'],
+
+                      ['10号楼421', '0', '8'],
+                      ['10号楼422', '0', '8'],
+                      ['10号楼423', '0', '8'],
+                      ['10号楼403', '0', '2'],
+                      ['7号楼301', '0', '5'],
+                      ['7号楼302', '0', '5'],
+                      ['7号楼303', '0', '5'],
+                      ['7号楼304', '0', '5'],
+                      ['7号楼306', '0', '5'],
+                      ['7号楼307', '0', '5'],
+                      ['7号楼308', '0', '5'],
+                      ['7号楼309', '0', '5'],
+                      ['7号楼310', '0', '5'],
+                      ['7号楼311', '0', '5'],
+                      ['7号楼312', '0', '5'],
+                      ['7号楼313', '0', '5'],
+                      ['7号楼314', '0', '5'],
+                      ['7号楼315', '0', '5'],
+                      ['7号楼316', '0', '5'],
+                      ['7号楼317', '0', '5']]
+    stu_list = Student.query.all()
+    workbook = xlwt.Workbook(encoding='utf-8')
+    worksheet = workbook.add_sheet('Students')
+    header = ['id', '考生号', '学制', '学年', '专业', '学院', '姓名', '性别',
+              '身份证号', '民族', '政治面貌', '职务', '荣誉', '报到情况', '宿舍',
+              '贫困认证', '科类', '出生日期', '考生类别', '毕业类别', '中学名称',
+              '外语语种', '报到校区', '是否报到', '报到时间', '交通工具', '是否延迟报到',
+              '延迟报道原因', '是否有宗教信仰', '联系方式', '家长姓名', '家长联系方式',
+              '省份', '市', '县', '详细地址', '籍贯', '户籍地址', 'QQ']
+    for i in range(len(header)):
+        worksheet.write(0, i, label=header[i])
+    # workbook.save('students.xls')
+
+    count = 1
+    for stu in stu_list:
+        info = []
+        info.append(stu.id)
+        info.append(stu.candidate_number)
+        info.append(stu.eductional_systme)
+        info.append(stu.academic_year)
+        info.append(stu.professional)
+        info.append(stu.college)
+        info.append(stu.name)
+        info.append(stu.sex)
+        info.append(stu.idcard)
+        info.append(stu.ethnic)
+        info.append(stu.political_landscape)
+        info.append(stu.position)
+        info.append(stu.honor)
+        info.append('是' if stu.check_in else '否')
+        info.append(dormitory_list[0 if not stu.dormitory_id
+                    else stu.dormitory_id][0])  # 宿舍
+        info.append(stu.poor_certification)
+        info.append(stu.subject_category)
+        info.append(stu.birthday)
+        info.append(stu.candidate_category)
+        info.append(stu.graduation_category)
+        info.append(stu.middle_school_name)
+        info.append(stu.foreign_language)
+        info.append(stu.report_campus)
+        info.append('是' if stu.whether_report else '否')
+        info.append(stu.estimated_arrival_time)
+        info.append(stu.transportation)
+        info.append('是' if stu.whether_delay_report else '否')
+        info.append(stu.delay_report_reason)
+        info.append('有' if stu.the_religion else '无')
+        info.append(stu.phone_number)
+        info.append(stu.parents_name)
+        info.append(stu.parents_phone_number)
+        info.append(stu.province)
+        info.append(stu.city)
+        info.append(stu.county)
+        info.append(stu.detailed_address)
+        info.append(stu.native_place)
+        info.append(stu.household_address)
+        info.append(stu.qq)
+
+        for i in range(len(info)):
+            worksheet.write(count, i, label=info[i])
+        count += 1
+    workbook.save(UPLOAD_FOLDER + 'students.xls')
+    try:
+        response = make_response(
+            send_file(UPLOAD_FOLDER + 'students.xls',
+                      as_attachment=True))
+        return response
+    except Exception as e:
+        return jsonify({'code': 0, 'message': str(e)})

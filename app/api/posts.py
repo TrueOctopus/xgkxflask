@@ -170,3 +170,4 @@ def deleteImg(filename):
         os.remove(path)
         return jsonify({'code': 1, 'message': '删除成功'})
     return jsonify({'code': 0, 'message': '图片不存在'})
+

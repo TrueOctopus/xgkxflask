@@ -142,12 +142,12 @@ def deleteArt():
         except Exception as e:
             return jsonify({'code': -1, 'message': str(e)})
 
-        # file_dir = UPLOAD_FOLDER
-        # filename = title + '.md'
-        # path = os.path.join(file_dir, filename)
-        # if not os.path.isfile(path):
-        #     return jsonify({'code': 0, 'message': '文档不存在'})
-        # os.remove(path)
+        file_dir = UPLOAD_FOLDER
+        filename = art.filename + '.md'
+        path = os.path.join(file_dir, filename)
+        if not os.path.isfile(path):
+            return jsonify({'code': 0, 'message': '文档不存在'})
+        os.remove(path)
         return jsonify({'code': 1, 'message': '删除成功'})
 
 
@@ -164,6 +164,6 @@ def downloadArt():
         return jsonify({'code': 0, 'message': '文件不存在'})
 
 
-@api.route('/article', methods=['GET', 'POST'])
-def article():
-    return render_template('file.html')
+# @api.route('/article', methods=['GET', 'POST'])
+# def article():
+#     return render_template('file.html')
